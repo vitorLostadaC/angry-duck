@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 import { motion } from 'motion/react'
 import Image from 'next/image'
-import vintageDuck from '../assets/vintage-duck.png'
+import vintageDuck from '../assets/images/vintage-duck.png'
 import { animationDelayByChild, initialAnimationDelay } from '../constants/animations'
 
 const ImageMotion = motion.create(Image)
@@ -13,7 +13,7 @@ export const VintageDucks = () => {
 			src={vintageDuck}
 			alt="Vintage Duck"
 			className={cn(
-				'fixed bottom-0  h-auto w-96  translate-y-28 ',
+				'fixed bottom-0  h-auto w-96  translate-y-28 z-10',
 				i === 0 ? 'left-0 -translate-x-20' : 'right-0 scale-x-[-1] translate-x-20'
 			)}
 			initial={{ opacity: 0, filter: 'blur(4px)' }}
