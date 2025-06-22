@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { anim, cn } from '@/lib/utils'
 import { motion } from 'motion/react'
+import { useSound } from 'use-sound'
 import { GithubIcon } from '../assets/icons/github-icon'
 import { MacIcon } from '../assets/icons/mac-icon'
 import {
@@ -15,6 +16,9 @@ const fadeBlurUp = anim({
 })
 
 export const HeroActions = () => {
+	const [hoverSound] = useSound('/sounds/sound6.mp3')
+	const [clickSound] = useSound('/sounds/sound4.mp3')
+
 	return (
 		<div className="flex justify-center items-center flex-col text-center gap-10">
 			<div className="space-y-4">
@@ -50,7 +54,7 @@ export const HeroActions = () => {
 					delay: initialAnimationDelay + animationDelayByChild * 2
 				}}
 			>
-				<Button>
+				<Button onMouseEnter={() => hoverSound()} onMouseDown={() => clickSound()}>
 					<MacIcon className="w-4 h-4" />
 					Baixar para Mac
 				</Button>

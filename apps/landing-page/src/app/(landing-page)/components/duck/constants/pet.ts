@@ -1,5 +1,5 @@
-import duckStopped from '../../../assets/duck/duck-stopped.png'
-import duckWalking from '../../../assets/duck/duck-walking.gif'
+import duckStopped from '../../../assets/images/duck/duck-stopped.png'
+import duckWalking from '../../../assets/images/duck/duck-walking.gif'
 
 export const MOVEMENT_SPEED = 0.5
 
