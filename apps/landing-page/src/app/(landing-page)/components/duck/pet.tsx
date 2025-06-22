@@ -1,4 +1,5 @@
-import { useRef } from 'react'
+import { motion } from 'motion/react'
+import { useEffect, useRef } from 'react'
 import { Chat } from './chat'
 import { PET_DIMENSIONS, PetState, pets } from './constants/pet'
 import { usePetChat } from './hooks/use-pet-chat'
@@ -18,6 +19,12 @@ export const PetWalking = (): React.JSX.Element => {
 		enabled: true
 	})
 
+	useEffect(() => {
+		setTimeout(() => {
+			resumeMovement()
+		}, 1000)
+	}, [resumeMovement])
+
 	function handleStoppedState() {
 		currentStateRef.current = PetState.STOPPED
 		stopMovement()
@@ -30,10 +37,23 @@ export const PetWalking = (): React.JSX.Element => {
 
 	return (
 		<div>
-			<div
+			<motion.div
 				className="absolute bottom-0"
-				style={{
+				initial={{
+					left: 0,
+					opacity: 0
+				}}
+				animate={{
 					left: `${position}px`,
+					opacity: 1,
+					transition: {
+						opacity: {
+							duration: 2,
+							delay: 1.5
+						}
+					}
+				}}
+				style={{
 					width: PET_DIMENSIONS.width,
 					height: PET_DIMENSIONS.height
 				}}
@@ -45,7 +65,7 @@ export const PetWalking = (): React.JSX.Element => {
 					className="w-full h-full object-contain"
 					style={{ transform: `scaleX(${direction})` }}
 				/>
-			</div>
+			</motion.div>
 		</div>
 	)
 }

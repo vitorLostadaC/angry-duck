@@ -27,7 +27,7 @@ export const usePetMovement = ({
 	})
 
 	const animationRef = useRef<number | null>(null)
-	const isMovingRef = useRef(true)
+	const isMovingRef = useRef(false)
 
 	const getBoundaries = useCallback(() => {
 		const maxPosition = window.innerWidth - PET_DIMENSIONS.width
