@@ -2,7 +2,7 @@ import type { GithubRelease } from '@/types/github-release'
 import type { AppVersion } from '../constants/version'
 
 export async function downloadLatestRelease(version: AppVersion) {
-	const url = 'https://api.github.com/repos/vitorLostadaC/hackathon-codecon/releases/latest'
+	const url = 'https://api.github.com/repos/vitorLostadaC/angry-duck/releases/latest'
 	const res = await fetch(url)
 	if (!res.ok) {
 		throw new Error(`GitHub API error: ${res.status} ${res.statusText}`)
