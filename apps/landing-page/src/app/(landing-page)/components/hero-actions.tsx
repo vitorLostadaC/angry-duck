@@ -9,6 +9,8 @@ import {
 	animationDuration,
 	initialAnimationDelay
 } from '../constants/animations'
+import { AppVersion } from '../constants/version'
+import { downloadLatestRelease } from '../lib/download-latest-release'
 
 const fadeBlurUp = anim({
 	initial: { opacity: 0, y: 5, filter: 'blur(4px)' },
@@ -54,7 +56,13 @@ export const HeroActions = () => {
 					delay: initialAnimationDelay + animationDelayByChild * 2
 				}}
 			>
-				<Button onMouseEnter={() => hoverSound()} onMouseDown={() => clickSound()}>
+				<Button
+					onMouseEnter={() => hoverSound()}
+					onMouseDown={() => {
+						clickSound()
+						downloadLatestRelease(AppVersion.Mac)
+					}}
+				>
 					<MacIcon className="w-4 h-4" />
 					Baixar para Mac
 				</Button>
