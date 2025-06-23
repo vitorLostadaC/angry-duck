@@ -8,7 +8,7 @@ interface PetChatCallbacks {
 	onMessageHide?: () => void
 }
 
-const MESSAGE_INTERVAL = 25 * 1000 // 25 seconds
+const MESSAGE_INTERVAL = 10 * 1000 // 25 seconds
 
 export const usePetChat = ({
 	enabled,
