@@ -1,37 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter&family=Arvo&display=swap');
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Arvo&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
 
 :root {
-  --background: #f5f5dc;
-  --foreground: #171717;
-  --tangerine-200: #dda37a;
-  --tangerine-300: #fda830;
-  --tangerine-400: #ff8904;
-  --tangerine-500: #ff6900;
-  --tangerine-950: #190a02;
-  --font-arvo: 'Arvo', system-ui;
+	--background: #f5f5dc;
+	--foreground: #171717;
+	--tangerine-200: #dda37a;
+	--tangerine-300: #fda830;
+	--tangerine-400: #ff8904;
+	--tangerine-500: #ff6900;
+	--tangerine-950: #190a02;
+	--font-arvo: "Arvo", system-ui;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-tangerine-200: var(--tangerine-200);
-  --color-tangerine-300: var(--tangerine-300);
-  --color-tangerine-400: var(--tangerine-400);
-  --color-tangerine-500: var(--tangerine-500);
-  --color-tangerine-950: var(--tangerine-950);
-  --font-arvo: var(--font-arvo);
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--font-sans: var(--font-geist-sans);
+	--font-mono: var(--font-geist-mono);
+	--color-tangerine-200: var(--tangerine-200);
+	--color-tangerine-300: var(--tangerine-300);
+	--color-tangerine-400: var(--tangerine-400);
+	--color-tangerine-500: var(--tangerine-500);
+	--color-tangerine-950: var(--tangerine-950);
+	--font-arvo: var(--font-arvo);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-arvo), sans-serif;
-  background-image: url('/noise.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+	background: var(--background);
+	color: var(--foreground);
+	font-family: var(--font-arvo), sans-serif;
+	background-image: url("/noise.png");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 }
