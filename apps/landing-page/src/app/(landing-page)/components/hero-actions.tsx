@@ -85,10 +85,10 @@ export const HeroActions = () => {
 	]
 
 	return (
-		<div className="flex justify-center items-center flex-col text-center gap-10">
-			<div className="space-y-4">
+		<div className="flex justify-center items-center flex-col text-center gap-4 md:gap-10">
+			<div className="space-y-2 md:space-y-4">
 				<motion.div
-					className={cn('text-8xl text-zinc-800')}
+					className={cn('text-6xl md:text-8xl text-zinc-800')}
 					{...fadeBlurUp}
 					transition={{
 						duration: animationDuration,
@@ -99,7 +99,7 @@ export const HeroActions = () => {
 					O Pato Puto
 				</motion.div>
 				<motion.div
-					className={cn('text-4xl text-zinc-600')}
+					className={cn('text-2xl md:text-4xl text-zinc-600')}
 					{...fadeBlurUp}
 					transition={{
 						duration: animationDuration,
@@ -111,7 +111,7 @@ export const HeroActions = () => {
 				</motion.div>
 			</div>
 			<motion.div
-				className="flex flex-wrap max-w-[450px] gap-4 justify-center"
+				className="flex flex-wrap max-w-[450px] gap-2 md:gap-4 justify-center "
 				{...fadeBlurUp}
 				transition={{
 					duration: animationDuration,
