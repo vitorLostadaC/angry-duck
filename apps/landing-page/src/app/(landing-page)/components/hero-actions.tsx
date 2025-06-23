@@ -18,7 +18,6 @@ import { downloadLatestRelease } from '../lib/download-latest-release'
 type DownloadButton = {
 	label: string
 	icon: React.ReactNode
-
 	variant: VariantProps<typeof buttonVariants>['variant']
 	os?: Os
 } & (
@@ -40,8 +39,6 @@ export const HeroActions = () => {
 	const [clickSound] = useSound('/sounds/sound4.mp3')
 
 	const currentOs = getMyOs()
-
-	console.log(currentOs)
 
 	const downloadButtons: DownloadButton[] = [
 		{
