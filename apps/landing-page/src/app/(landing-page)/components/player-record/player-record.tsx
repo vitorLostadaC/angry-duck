@@ -7,9 +7,11 @@ import {
 	initialAnimationDelay
 } from '../../constants/animations'
 import { Disk } from './components/disk'
+import { ToneArm } from './components/tone-arm'
 
 export const PlayerRecord = () => {
 	const [active, setActive] = useState(false)
+	const [isDraggingToneArm, setIsDraggingToneArm] = useState(false)
 
 	const joinAnimation = anim({
 		initial: { opacity: 0, filter: 'blur(4px)' },
@@ -26,7 +28,8 @@ export const PlayerRecord = () => {
 				delay: initialAnimationDelay + animationDelayByChild * 4
 			}}
 		>
-			<Disk active={active} setActive={setActive} />
+			<Disk active={active} setActive={setActive} isDraggingToneArm={isDraggingToneArm} />
+			<ToneArm setActive={setActive} setIsDraggingToneArm={setIsDraggingToneArm} />
 		</motion.div>
 	)
 }

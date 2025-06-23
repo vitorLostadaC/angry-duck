@@ -2,18 +2,22 @@ import { DiskSvg } from '@/app/(landing-page)/assets/images/record-player/disk'
 import { type AnimationPlaybackControls, animate, motion, useMotionValue } from 'motion/react'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
+import useSound from 'use-sound'
 import musicDisk from '../../../assets/images/music-disk.png'
 
 interface DiskProps {
 	active: boolean
 	setActive: React.Dispatch<React.SetStateAction<boolean>>
+	isDraggingToneArm: boolean
 }
 
-export const Disk = ({ active, setActive }: DiskProps) => {
+export const Disk = ({ active, setActive, isDraggingToneArm }: DiskProps) => {
 	const diskRotate = useMotionValue(0)
 	const animation = useRef<AnimationPlaybackControls | null>(null)
 
-	const play = () => {
+	const [playSound, controls] = useSound('/sounds/O pato de ipanema.mp3')
+
+	const startDiskAnimation = () => {
 		animation.current = animate(diskRotate, [0, 360], {
 			repeat: Number.POSITIVE_INFINITY,
 			repeatType: 'loop',
@@ -22,22 +26,35 @@ export const Disk = ({ active, setActive }: DiskProps) => {
 		})
 	}
 
-	const pause = () => animation.current?.pause()
-	const resume = () => animation.current?.play()
+	const pauseDiskAnimation = () => animation.current?.pause()
+	const resumeDiskAnimation = () => animation.current?.play()
 
 	useEffect(() => {
-		if (active && !animation.current) {
-			play()
+		const pauseAll = () => {
+			pauseDiskAnimation()
+			controls.pause()
+		}
+
+		if (isDraggingToneArm) {
+			pauseAll()
 			return
 		}
 
-		if (animation.current?.state === 'paused') {
-			resume()
+		if (active) {
+			playSound()
+
+			if (!animation.current) {
+				startDiskAnimation()
+			}
+
+			if (animation.current?.state === 'paused') {
+				resumeDiskAnimation()
+			}
 			return
 		}
 
-		pause()
-	}, [active])
+		pauseAll()
+	}, [active, isDraggingToneArm])
 
 	return (
 		<motion.div

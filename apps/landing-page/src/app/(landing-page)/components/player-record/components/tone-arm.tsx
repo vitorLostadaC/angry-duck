@@ -3,9 +3,10 @@ import { motion, useMotionValue, useSpring } from 'motion/react'
 
 interface ToneArmProps {
 	setActive: React.Dispatch<React.SetStateAction<boolean>>
+	setIsDraggingToneArm: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ToneArm = ({ setActive }: ToneArmProps) => {
+export const ToneArm = ({ setActive, setIsDraggingToneArm }: ToneArmProps) => {
 	const toneArmRotate = useMotionValue(0)
 	const smoothRotate = useSpring(toneArmRotate, { bounce: 0 })
 
@@ -15,6 +16,9 @@ export const ToneArm = ({ setActive }: ToneArmProps) => {
 			whileHover={{ cursor: 'grab' }}
 			whileTap={{ cursor: 'grabbing', scale: 1.05 }}
 			style={{ rotate: smoothRotate }}
+			onMouseDown={() => {
+				setIsDraggingToneArm(true)
+			}}
 			onPan={(_, info) => {
 				const minRotate = -10
 				const maxRotate = 25
@@ -23,6 +27,7 @@ export const ToneArm = ({ setActive }: ToneArmProps) => {
 				toneArmRotate.set(clamped)
 			}}
 			onPanEnd={() => {
+				setIsDraggingToneArm(false)
 				const rotate = toneArmRotate.get()
 
 				const isOnDisk = rotate > 16.5

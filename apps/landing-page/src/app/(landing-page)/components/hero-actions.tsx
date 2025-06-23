@@ -35,8 +35,8 @@ const fadeBlurUp = anim({
 })
 
 export const HeroActions = () => {
-	const [hoverSound] = useSound('/sounds/sound6.mp3')
-	const [clickSound] = useSound('/sounds/sound4.mp3')
+	const [hoverSound] = useSound('/sounds/sound2.mp3')
+	const [clickSound] = useSound('/sounds/sound1.mp3')
 
 	const currentOs = getMyOs()
 
