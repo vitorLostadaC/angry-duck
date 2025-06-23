@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "biome check src",
     "lint:fix": "biome check --fix --unsafe ./src",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
