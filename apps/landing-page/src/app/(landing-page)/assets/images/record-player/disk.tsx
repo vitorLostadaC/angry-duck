@@ -1,4 +1,4 @@
-export const Disk = ({ className }: { className?: string }) => {
+export const DiskSvg = ({ className }: { className?: string }) => {
 	return (
 		<svg
 			width="96"

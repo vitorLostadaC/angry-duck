@@ -1,4 +1,4 @@
-export const ToneArm = ({ className }: { className?: string }) => {
+export const ToneArmSvg = ({ className }: { className?: string }) => {
 	return (
 		<svg
 			width="27"

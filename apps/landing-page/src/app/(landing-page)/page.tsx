@@ -2,7 +2,7 @@
 
 import { PetWalking } from './components/duck/pet'
 import { HeroActions } from './components/hero-actions'
-import { PlayerRecord } from './components/player-record'
+import { PlayerRecord } from './components/player-record/player-record'
 import { VintageDucks } from './components/vintage-ducks'
 
 export default function Home() {
