@@ -1,4 +1,4 @@
-import { ToneArmSvg } from '@/app/(landing-page)/assets/images/record-player/tone-arm'
+import { ToneArmSvg } from '@/app/(landing-page)/assets/images/record-player/tone-arm-svg'
 import { motion, useMotionValue, useSpring } from 'motion/react'
 
 interface ToneArmProps {

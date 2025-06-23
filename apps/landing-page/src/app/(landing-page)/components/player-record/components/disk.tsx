@@ -1,4 +1,4 @@
-import { DiskSvg } from '@/app/(landing-page)/assets/images/record-player/disk'
+import { DiskSvg } from '@/app/(landing-page)/assets/images/record-player/disk-svg'
 import { type AnimationPlaybackControls, animate, motion, useMotionValue } from 'motion/react'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
@@ -65,7 +65,7 @@ export const Disk = ({ active, setActive, isDraggingToneArm }: DiskProps) => {
 			<Image
 				src={musicDisk}
 				alt="Music Disk"
-				className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 pointer-events-none"
+				className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 pointer-events-none select-none"
 			/>
 			<DiskSvg />
 		</motion.div>

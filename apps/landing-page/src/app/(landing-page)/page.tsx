@@ -7,7 +7,7 @@ import { VintageDucks } from './components/vintage-ducks'
 
 export default function Home() {
 	return (
-		<div className="flex flex-col items-center justify-center h-screen">
+		<div className="flex flex-col items-center justify-center h-screen selection:bg-tangerine-300">
 			<HeroActions />
 			<PlayerRecord />
 			<VintageDucks />

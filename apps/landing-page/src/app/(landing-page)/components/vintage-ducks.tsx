@@ -23,7 +23,7 @@ export const VintageDucks = () => {
 			src={vintageDuck}
 			alt="Vintage Duck"
 			className={cn(
-				'fixed bottom-0  h-auto w-96  translate-y-28 z-0',
+				'fixed bottom-0  h-auto w-96  translate-y-28 z-0 pointer-events-none select-none',
 				i === 1 && 'md:block hidden',
 				i === 0
 					? 'left-0 -translate-x-40 md:-translate-x-20'
