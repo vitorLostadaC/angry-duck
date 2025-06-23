@@ -25,7 +25,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: debug
-        run: find . -name 'duck-stopped.png'
+        run: find . -name 'duck-stopped.png' | pnpm turbo build --filter landing-page
 
       - name: Run Lint + Formater
         run: pnpm lint
