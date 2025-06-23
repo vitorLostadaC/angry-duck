@@ -24,6 +24,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: debug
+        run: find . -name 'duck-stopped.png'
+
       - name: Run Lint + Formater
         run: pnpm lint
 
