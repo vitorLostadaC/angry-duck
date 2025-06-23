@@ -1,5 +1,5 @@
 import { Button, type buttonVariants } from '@/components/ui/button'
-import { type Os, anim, cn, getMyOs } from '@/lib/utils'
+import { type Os, anim, cn } from '@/lib/utils'
 import type { VariantProps } from 'class-variance-authority'
 import { motion } from 'motion/react'
 import { useSound } from 'use-sound'
@@ -38,7 +38,8 @@ export const HeroActions = () => {
 	const [hoverSound] = useSound('/sounds/sound2.mp3')
 	const [clickSound] = useSound('/sounds/sound1.mp3')
 
-	const currentOs = getMyOs()
+	// const currentOs = getMyOs()
+	const currentOs = 'unsupported'
 
 	const downloadButtons: DownloadButton[] = [
 		{
@@ -119,6 +120,11 @@ export const HeroActions = () => {
 					delay: initialAnimationDelay + animationDelayByChild * 2
 				}}
 			>
+				{currentOs === 'unsupported' && (
+					<div className="text-sm text-zinc-600 max-w-40 text-balance">
+						Disponível apenas para computadores
+					</div>
+				)}
 				{downloadButtons
 					.filter((button) => button.os === currentOs || !button.os)
 					.map((button) => (

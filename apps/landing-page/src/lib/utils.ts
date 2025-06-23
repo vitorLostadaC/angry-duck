@@ -23,11 +23,11 @@ export function anim(variants: CustomVariant) {
 
 export type Os = 'mac' | 'windows' | 'linux'
 
-export const getMyOs = (): Os | 'unknown' => {
+export const getMyOs = (): Os | 'unknown' | 'unsupported' => {
 	if (typeof window === 'undefined') return 'unknown'
 	const userAgent = window.navigator.userAgent
 	if (userAgent.includes('Mac')) return 'mac'
 	if (userAgent.includes('Windows')) return 'windows'
 	if (userAgent.includes('Linux')) return 'linux'
-	return 'unknown'
+	return 'unsupported'
 }
