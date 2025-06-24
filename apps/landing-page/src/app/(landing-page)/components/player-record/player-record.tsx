@@ -28,7 +28,7 @@ export const PlayerRecord = () => {
 				delay: initialAnimationDelay + animationDelayByChild * 4
 			}}
 		>
-			<Disk active={active} setActive={setActive} isDraggingToneArm={isDraggingToneArm} />
+			<Disk active={active} isDraggingToneArm={isDraggingToneArm} />
 			<ToneArm setActive={setActive} setIsDraggingToneArm={setIsDraggingToneArm} />
 		</motion.div>
 	)

@@ -10,32 +10,29 @@ export const ToneArm = ({ setActive, setIsDraggingToneArm }: ToneArmProps) => {
 	const toneArmRotate = useMotionValue(0)
 	const smoothRotate = useSpring(toneArmRotate, { bounce: 0 })
 
+	const minRotate = -10
+	const maxRotate = 25
+
 	return (
 		<motion.div
-			className="origin-top"
+			style={{ touchAction: 'none' }}
 			whileHover={{ cursor: 'grab' }}
 			whileTap={{ cursor: 'grabbing', scale: 1.05 }}
-			style={{ rotate: smoothRotate }}
-			onMouseDown={() => {
-				setIsDraggingToneArm(true)
-			}}
+			onPanStart={() => setIsDraggingToneArm(true)}
 			onPan={(_, info) => {
-				const minRotate = -10
-				const maxRotate = 25
 				const next = toneArmRotate.get() - info.delta.x
 				const clamped = Math.max(minRotate, Math.min(maxRotate, next))
 				toneArmRotate.set(clamped)
 			}}
 			onPanEnd={() => {
 				setIsDraggingToneArm(false)
-				const rotate = toneArmRotate.get()
-
-				const isOnDisk = rotate > 16.5
-
+				const isOnDisk = toneArmRotate.get() > 16.5
 				setActive(isOnDisk)
 			}}
 		>
-			<ToneArmSvg />
+			<motion.div className="origin-top" style={{ rotate: smoothRotate }}>
+				<ToneArmSvg />
+			</motion.div>
 		</motion.div>
 	)
 }

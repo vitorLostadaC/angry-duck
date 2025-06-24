@@ -7,11 +7,10 @@ import musicDisk from '../../../assets/images/music-disk.png'
 
 interface DiskProps {
 	active: boolean
-	setActive: React.Dispatch<React.SetStateAction<boolean>>
 	isDraggingToneArm: boolean
 }
 
-export const Disk = ({ active, setActive, isDraggingToneArm }: DiskProps) => {
+export const Disk = ({ active, isDraggingToneArm }: DiskProps) => {
 	const diskRotate = useMotionValue(0)
 	const animation = useRef<AnimationPlaybackControls | null>(null)
 
@@ -57,11 +56,7 @@ export const Disk = ({ active, setActive, isDraggingToneArm }: DiskProps) => {
 	}, [active, isDraggingToneArm])
 
 	return (
-		<motion.div
-			className="relative cursor-pointer"
-			onClick={() => setActive((prev) => !prev)}
-			style={{ rotate: diskRotate }}
-		>
+		<motion.div className="relative" style={{ rotate: diskRotate }}>
 			<Image
 				src={musicDisk}
 				alt="Music Disk"
