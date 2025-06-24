@@ -120,7 +120,7 @@ export const HeroActions = () => {
 				}}
 			>
 				{currentOs === 'unsupported' && (
-					<div className="text-sm text-zinc-600 max-w-40 text-balance">
+					<div className="text-sm text-zinc-600 max-w-40 text-balance leading-[18px]">
 						Disponível apenas para computadores
 					</div>
 				)}
