@@ -1,7 +1,7 @@
 import { cn } from '@renderer/lib/utils'
-import { useConfig } from './hooks/use-config'
 
-import { type PetType, pets } from '../pet/constants/pet'
+import { type PetType, pets } from '../../pet/constants/pet'
+import { useConfig } from '../hooks/use-config'
 
 export function AppearancePage() {
 	const { configs, updateConfig } = useConfig()

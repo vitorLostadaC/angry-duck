@@ -2,13 +2,13 @@ import { cn } from '@renderer/lib/utils'
 import { plans as ApiPlans, type PaymentPlan } from '@repo/api-types/payment.dto'
 
 import { useClerk, useUser } from '@clerk/clerk-react'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@radix-ui/react-tooltip'
 import { HandCoins, InfoIcon, Mail } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { Button } from '../../components/ui/button'
-import { Tooltip, TooltipContent, TooltipTrigger } from '../../components/ui/tooltip'
-import { PixDialog } from './components/pix-dialog'
-import type { PixFormValues } from './components/pix-dialog/pix-form'
-import { PricingParticle } from './components/pricing-particle'
+import { Button } from '~/src/renderer/components/ui/button'
+import { PixDialog } from '../components/pix-dialog'
+import type { PixFormValues } from '../components/pix-dialog/pix-form'
+import { PricingParticle } from '../components/pricing-particle'
 
 interface PricingPlan {
 	slug: PaymentPlan

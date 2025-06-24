@@ -2,10 +2,10 @@ import { Route } from 'react-router-dom'
 
 import { Router } from '@shared/lib/electron-router-dom'
 import { PetScreen } from './screens/pet/pet'
-import { AppearancePage } from './screens/settings/appearance-page'
-import { GeneralPage } from './screens/settings/general-page'
 import { Layout } from './screens/settings/layout'
-import { PricingPage } from './screens/settings/pricing-page'
+import { AppearancePage } from './screens/settings/pages/appearance-page'
+import { GeneralPage } from './screens/settings/pages/general-page'
+import { PricingPage } from './screens/settings/pages/pricing-page'
 
 export function Routes() {
 	return (

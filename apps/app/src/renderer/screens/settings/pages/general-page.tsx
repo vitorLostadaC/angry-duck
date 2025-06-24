@@ -1,10 +1,10 @@
+import { Switch } from '@radix-ui/react-switch'
 import type React from 'react'
-import { Badge } from '../../components/ui/badge'
-import { InputNumber } from '../../components/ui/input-number'
-import { Switch } from '../../components/ui/switch'
-import { cn } from '../../lib/utils'
-import { useConfig } from './hooks/use-config'
-import type { SettingsType } from './types/settings-type'
+import { Badge } from '~/src/renderer/components/ui/badge'
+import { InputNumber } from '~/src/renderer/components/ui/input-number'
+import { cn } from '~/src/renderer/lib/utils'
+import { useConfig } from '../hooks/use-config'
+import type { SettingsType } from '../types/settings-type'
 
 export function GeneralPage() {
 	const { configs, updateConfig } = useConfig()
