@@ -5,6 +5,22 @@ import { createMainWindow } from './factories'
 import './lib/ipc'
 import './lib/store'
 
+const hasSingleInstanceLock = app.requestSingleInstanceLock()
+
+if (!hasSingleInstanceLock) {
+	app.quit()
+	process.exit(0)
+}
+
+app.on('second-instance', () => {
+	const [mainWindow] = BrowserWindow.getAllWindows()
+
+	if (mainWindow) {
+		if (mainWindow.isMinimized()) mainWindow.restore()
+		mainWindow.focus()
+	}
+})
+
 app.whenReady().then(() => {
 	if (process.platform === 'darwin') {
 		app.dock?.hide()
