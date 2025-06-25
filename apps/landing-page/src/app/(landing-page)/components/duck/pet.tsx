@@ -1,13 +1,18 @@
 import { motion } from 'motion/react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Chat } from './chat'
 import { PET_DIMENSIONS, PetState, pets } from './constants/pet'
 import { usePetChat } from './hooks/use-pet-chat'
 import { usePetMovement } from './hooks/use-pet-movement'
 
-export const PetWalking = (): React.JSX.Element => {
+interface PetWalkingProps {
+	buttonHovered: boolean
+}
+
+export const PetWalking = ({ buttonHovered }: PetWalkingProps): React.JSX.Element => {
 	const currentStateRef = useRef<PetState>(PetState.WALKING)
 	const chatRef = useRef<HTMLDivElement>(null)
+	const [, forceRender] = useState(false)
 
 	const { position, direction, chatDirection, stopMovement, resumeMovement } = usePetMovement({
 		chatRef
@@ -16,7 +21,7 @@ export const PetWalking = (): React.JSX.Element => {
 	const { message } = usePetChat({
 		onMessageShow: handleStoppedState,
 		onMessageHide: handleWalkingState,
-		enabled: true
+		enabled: !buttonHovered
 	})
 
 	useEffect(() => {
@@ -24,6 +29,15 @@ export const PetWalking = (): React.JSX.Element => {
 			resumeMovement()
 		}, 1000)
 	}, [resumeMovement])
+
+	useEffect(() => {
+		forceRender((prev) => !prev)
+		if (buttonHovered) {
+			handleStoppedState()
+		} else {
+			handleWalkingState()
+		}
+	}, [buttonHovered])
 
 	function handleStoppedState() {
 		currentStateRef.current = PetState.STOPPED
@@ -58,7 +72,11 @@ export const PetWalking = (): React.JSX.Element => {
 					height: PET_DIMENSIONS.height
 				}}
 			>
-				<Chat message={message} direction={chatDirection} ref={chatRef} />
+				<Chat
+					message={buttonHovered ? 'Esquilo...' : message}
+					direction={chatDirection}
+					ref={chatRef}
+				/>
 				<img
 					src={pets.duck[currentStateRef.current]}
 					alt="Duck"

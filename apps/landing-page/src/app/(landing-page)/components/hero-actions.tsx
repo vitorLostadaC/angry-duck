@@ -34,7 +34,11 @@ const fadeBlurUp = anim({
 	animate: { opacity: 1, y: 0, filter: 'blur(0px)' }
 })
 
-export const HeroActions = () => {
+interface HeroActionsProps {
+	setButtonHovered: (active: boolean) => void
+}
+
+export const HeroActions = ({ setButtonHovered }: HeroActionsProps) => {
 	const [hoverSound] = useSound('/sounds/sound2.mp3')
 	const [clickSound] = useSound('/sounds/sound1.mp3')
 
@@ -130,7 +134,13 @@ export const HeroActions = () => {
 						<Button
 							key={button.label}
 							variant={button.variant}
-							onMouseEnter={() => hoverSound()}
+							onMouseEnter={() => {
+								hoverSound()
+								setButtonHovered(true)
+							}}
+							onMouseLeave={() => {
+								setButtonHovered(false)
+							}}
 							onMouseDown={() => {
 								clickSound()
 								if ('version' in button) {
