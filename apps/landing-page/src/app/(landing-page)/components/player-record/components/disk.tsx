@@ -14,7 +14,9 @@ export const Disk = ({ active, isDraggingToneArm }: DiskProps) => {
 	const diskRotate = useMotionValue(0)
 	const animation = useRef<AnimationPlaybackControls | null>(null)
 
-	const [playSound, controls] = useSound('/sounds/O pato de ipanema.mp3')
+	const [playSound, controls] = useSound('/sounds/O pato de ipanema.mp3', {
+		volume: 0.5
+	})
 
 	const startDiskAnimation = () => {
 		animation.current = animate(diskRotate, [0, 360], {
