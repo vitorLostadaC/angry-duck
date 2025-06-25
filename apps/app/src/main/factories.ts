@@ -124,9 +124,6 @@ export function createSettingsWindow() {
 			sandbox: false,
 			nodeIntegration: false,
 			contextIsolation: true
-		},
-		query: {
-			version
 		}
 	})
 }
