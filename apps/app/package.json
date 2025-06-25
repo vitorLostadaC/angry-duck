@@ -1,7 +1,7 @@
 {
   "name": "pato-puto-app",
   "productName": "Pato Puto",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "A virtual assistant focused on cursing everything you do",
   "main": "./out/main/index.js",
   "author": "patoputo.com",

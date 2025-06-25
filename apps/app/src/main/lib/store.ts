@@ -12,6 +12,7 @@ const defaults: StoreConfig = {
 			selectedPet: 'duck'
 		},
 		general: {
+			firstRun: true,
 			cursingInterval: 60,
 			safeMode: false,
 			focusMode: null
@@ -20,7 +21,7 @@ const defaults: StoreConfig = {
 }
 
 export const store = new Store<StoreConfig>({
-	name: is.dev ? 'dev-store' : 'store',
+	name: is.dev ? 'dev.store' : 'store',
 	defaults
 	// I'm just keeping this commented as reference for future migrations
 	// migrations: {

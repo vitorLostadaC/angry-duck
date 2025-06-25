@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
+import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { getConfigsOptions } from '../../requests/electron-store/config'
 import { Chat } from './chat'
+import { ConfigsCheck } from './components/configs-check'
 import { PET_DIMENSIONS, PetState, pets } from './constants/pet'
 import { usePetChat } from './hooks/use-pet-chat'
 import { usePetMovement } from './hooks/use-pet-movement'
@@ -24,7 +26,7 @@ export const PetScreen = (): React.JSX.Element => {
 		})
 	}, [])
 
-	const { position, direction, chatDirection, stopMovement, resumeMovement } = usePetMovement({
+	const { x, direction, chatDirection, stopMovement, resumeMovement } = usePetMovement({
 		chatRef
 	})
 
@@ -45,11 +47,12 @@ export const PetScreen = (): React.JSX.Element => {
 	}
 
 	return (
-		<div>
-			<div
-				className="absolute bottom-0"
+		<>
+			<ConfigsCheck />
+			<motion.div
+				className="absolute bottom-0 left-0"
 				style={{
-					left: `${position}px`,
+					x,
 					width: PET_DIMENSIONS.width,
 					height: PET_DIMENSIONS.height
 				}}
@@ -65,7 +68,7 @@ export const PetScreen = (): React.JSX.Element => {
 					className="w-full h-full object-contain"
 					style={{ transform: `scaleX(${direction})` }}
 				/>
-			</div>
-		</div>
+			</motion.div>
+		</>
 	)
 }

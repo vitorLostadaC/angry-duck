@@ -3,6 +3,10 @@ import type { PetType } from '~/src/renderer/screens/pet/constants/pet'
 export interface Configs {
 	general: {
 		/**
+		 * First time user is using the app
+		 */
+		firstRun: boolean
+		/**
 		 * Interval between each request to the AI
 		 */
 		cursingInterval: number

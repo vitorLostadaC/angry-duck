@@ -4,6 +4,7 @@ export const { Router, registerRoute, settings } = createElectronRouter({
 	port: 5173,
 
 	types: {
-		ids: ['main', 'settings']
+		ids: ['main', 'settings'],
+		queryKeys: ['version']
 	}
 })

@@ -5,8 +5,10 @@ import type {
 	UpdateConfigRequest,
 	UpdateConfigResponse
 } from '@shared/types/ipc'
+import type { IpcMainInvokeEvent, WebContents } from 'electron'
 import { desktopCapturer, ipcMain, screen } from 'electron'
 import type { Configs } from '~/src/shared/types/configs'
+import { createSettingsWindow } from '../factories'
 import { store } from './store'
 
 ipcMain.handle(IPC.ACTIONS.TAKE_SCREENSHOT, async (): Promise<TakeScreenshotResponse> => {
@@ -59,3 +61,17 @@ ipcMain.handle(
 		}
 	}
 )
+
+ipcMain.handle(IPC.WINDOWS.CREATE_SETTINGS, async (event: IpcMainInvokeEvent): Promise<void> => {
+	const mainWebContents: WebContents = event.sender
+
+	const settingsWindow = createSettingsWindow()
+
+	settingsWindow.on('closed', () => {
+		mainWebContents.send(IPC.WINDOWS.ON_CLOSE_SETTINGS)
+	})
+
+	settingsWindow.on('show', () => {
+		mainWebContents.send(IPC.WINDOWS.ON_OPEN_SETTINGS)
+	})
+})

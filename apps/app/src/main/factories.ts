@@ -1,5 +1,6 @@
-import path, { join } from 'node:path'
 import { BrowserWindow, screen } from 'electron'
+import path, { join } from 'node:path'
+import { version } from '../../package.json'
 
 import { registerRoute } from '../shared/lib/electron-router-dom'
 import { createTray } from './lib/tray'
@@ -83,10 +84,14 @@ export function createMainWindow() {
 			nodeIntegration: false,
 			contextIsolation: true,
 			backgroundThrottling: false
+		},
+		query: {
+			version
 		}
 	})
 
 	mainWindow.setIgnoreMouseEvents(true, { forward: true })
+	mainWindow.webContents.openDevTools()
 
 	createTray(mainWindow)
 
@@ -119,6 +124,9 @@ export function createSettingsWindow() {
 			sandbox: false,
 			nodeIntegration: false,
 			contextIsolation: true
+		},
+		query: {
+			version
 		}
 	})
 }
