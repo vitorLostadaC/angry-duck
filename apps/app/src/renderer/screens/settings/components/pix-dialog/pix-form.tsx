@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Loader2 } from 'lucide-react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import z from 'zod'
 import { maskCpf } from '~/src/renderer/components/masks/cpf'
 import { maskPhone } from '~/src/renderer/components/masks/phone'
@@ -21,6 +22,7 @@ import {
 	FormMessage
 } from '~/src/renderer/components/ui/form'
 import { Input } from '~/src/renderer/components/ui/input'
+import { catchError } from '~/src/renderer/lib/utils'
 import { createPixPayment } from '~/src/renderer/requests/payments/create-pix-payment'
 
 type PixQrCodeFormProps = {
@@ -38,7 +40,7 @@ const formSchema = z.object({
 		.refine((value) => cpf.isValid(value), {
 			message: 'CPF inválido.'
 		}),
-	phone: z.string().min(15, 'Mínimo 15 caracteres.').max(15, 'Máximo 15 caracteres.')
+	phone: z.string().max(15, 'Máximo 15 caracteres.').optional()
 })
 
 export type PixFormValues = z.infer<typeof formSchema>
@@ -64,13 +66,21 @@ export const PixQrCodeForm = ({ plan, defaultValues, setPixPayment }: PixQrCodeF
 	async function onSubmit(values: PixFormValues) {
 		if (!user) return
 
-		const response = await createPixPaymentMutation({
-			plan,
-			userId: user?.id,
-			email: user.emailAddresses[0]?.emailAddress ?? 'example@example.com',
-			document: values.cpf,
-			...values
-		})
+		const [error, response] = await catchError(
+			createPixPaymentMutation({
+				...values,
+				plan,
+				userId: user?.id,
+				email: user.emailAddresses[0]?.emailAddress ?? 'example@example.com',
+				document: values.cpf,
+				phone: values.phone?.replace(/\D/g, '') ?? '48999169916'
+			})
+		)
+
+		if (error) {
+			toast.error('PUTA QUE PARIU, Quebrou pagamentos. agora fu@=u... pode xingar o vitor no insta')
+			return
+		}
 
 		setPixPayment(response)
 	}
@@ -113,7 +123,9 @@ export const PixQrCodeForm = ({ plan, defaultValues, setPixPayment }: PixQrCodeF
 					name="phone"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Telefone</FormLabel>
+							<FormLabel>
+								Telefone <span className="text-xs text-gray-400">(Opcional)</span>
+							</FormLabel>
 							<FormControl>
 								<Input
 									placeholder="(00) 00000-0000"
