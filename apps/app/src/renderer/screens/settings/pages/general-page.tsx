@@ -1,7 +1,7 @@
-import { Switch } from '@radix-ui/react-switch'
 import type React from 'react'
 import { Badge } from '~/src/renderer/components/ui/badge'
 import { InputNumber } from '~/src/renderer/components/ui/input-number'
+import { Switch } from '~/src/renderer/components/ui/switch'
 import { cn } from '~/src/renderer/lib/utils'
 import { useConfig } from '../hooks/use-config'
 import type { SettingsType } from '../types/settings-type'
