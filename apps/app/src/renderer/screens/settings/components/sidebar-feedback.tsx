@@ -76,15 +76,18 @@ export function SidebarFeedback() {
 		}
 	})
 
-	const { mutateAsync: sendFeedbackAsync } = useMutation({
+	const { mutateAsync: sendFeedbackAsync, error } = useMutation({
 		mutationKey: ['send-feedback'],
 		mutationFn: async (data: FormSchema) =>
 			await createFeedback({
 				userId: user?.id || '',
 				message: data.feedback,
-				rating: data.rating
+				rating: data.rating,
+				os: process.platform
 			})
 	})
+
+	console.log(error)
 
 	const handleSubmit = form.handleSubmit(async (data) => {
 		setLoading(true)

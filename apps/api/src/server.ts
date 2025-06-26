@@ -33,7 +33,7 @@ fastify.register(clerkPlugin, {
 })
 
 fastify.register(cors, {
-	origin: '*',
+	origin: true,
 	credentials: true
 })
 
@@ -42,26 +42,23 @@ fastify.setSerializerCompiler(serializerCompiler)
 
 fastify.addHook('onRequest', async (request, reply) => {
 	const url = request.url
-	console.log('url', url)
-	const isPublicRoute = request.url.includes('/webhook')
+	const isPublicRoute = url.includes('/webhook')
 
+	// Allow access for public routes or dev admin header in development
 	const adminHeader = request.headers['x-admin']
-	const allowAccess = (adminHeader === 'dev' && env.NODE_ENV === 'development') || isPublicRoute
+	const isDevAdmin = adminHeader === 'dev' && env.NODE_ENV === 'development'
 
-	if (allowAccess) {
-		console.log('allowAccess', allowAccess)
+	if (isPublicRoute || isDevAdmin) {
 		return
 	}
+
 	const { userId } = getAuth(request)
 
 	if (!userId) {
-		console.log('userId', userId)
-		return reply.code(401).send({ error: 'Unauthorized' })
+		reply.code(401).send({ error: 'Unauthorized' })
+		// Stop further processing
+		return reply
 	}
-
-	console.log('suserId', userId)
-
-	return
 })
 
 fastify.register(routes)
