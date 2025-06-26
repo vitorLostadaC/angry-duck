@@ -91,7 +91,6 @@ export function createMainWindow() {
 	})
 
 	mainWindow.setIgnoreMouseEvents(true, { forward: true })
-	mainWindow.webContents.openDevTools()
 
 	createTray(mainWindow)
 
