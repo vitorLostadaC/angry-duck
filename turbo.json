@@ -5,6 +5,7 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "env": ["VITE_*"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "lint": {
@@ -20,13 +21,16 @@
       "dependsOn": ["^release"]
     },
     "build:linux": {
-      "dependsOn": ["^build:linux"]
+      "dependsOn": ["^build:linux"],
+      "env": ["VITE_*"]
     },
     "build:mac": {
-      "dependsOn": ["^build:mac"]
+      "dependsOn": ["^build:mac"],
+      "env": ["VITE_*"]
     },
     "build:win": {
-      "dependsOn": ["^build:win"]
+      "dependsOn": ["^build:win"],
+      "env": ["VITE_*"]
     },
     "dev": {
       "cache": false,

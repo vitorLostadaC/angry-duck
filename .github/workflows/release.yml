@@ -48,17 +48,14 @@ jobs:
 
       - name: build-linux
         if: matrix.os == 'ubuntu-latest'
-        working-directory: apps/app
         run: pnpm run build:linux
 
       - name: build-mac
         if: matrix.os == 'macos-latest'
-        working-directory: apps/app
         run: pnpm run build:mac
 
       - name: build-win
         if: matrix.os == 'windows-latest'
-        working-directory: apps/app
         run: pnpm run build:win
 
       - name: release
