@@ -1,3 +1,4 @@
+import { captureEvent } from '@/actions/send-event'
 import { ToneArmSvg } from '@/app/(landing-page)/assets/images/record-player/tone-arm-svg'
 import { motion, useMotionValue, useSpring } from 'motion/react'
 
@@ -18,7 +19,10 @@ export const ToneArm = ({ setActive, setIsDraggingToneArm }: ToneArmProps) => {
 			style={{ touchAction: 'none' }}
 			whileHover={{ cursor: 'grab' }}
 			whileTap={{ cursor: 'grabbing', scale: 1.05 }}
-			onPanStart={() => setIsDraggingToneArm(true)}
+			onPanStart={() => {
+				setIsDraggingToneArm(true)
+				captureEvent('tone_arm_drag_start')
+			}}
 			onPan={(_, info) => {
 				const next = toneArmRotate.get() - info.delta.x
 				const clamped = Math.max(minRotate, Math.min(maxRotate, next))
@@ -28,6 +32,7 @@ export const ToneArm = ({ setActive, setIsDraggingToneArm }: ToneArmProps) => {
 				setIsDraggingToneArm(false)
 				const isOnDisk = toneArmRotate.get() > 16.5
 				setActive(isOnDisk)
+				if (isOnDisk) captureEvent('tone_arm_on_disk')
 			}}
 		>
 			<motion.div className="origin-top" style={{ rotate: smoothRotate }}>

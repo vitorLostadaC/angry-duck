@@ -1,3 +1,4 @@
+import { captureEvent } from '@/actions/send-event'
 import { Button, type buttonVariants } from '@/components/ui/button'
 import { type Os, anim, cn, getMyOs } from '@/lib/utils'
 import type { VariantProps } from 'class-variance-authority'
@@ -135,6 +136,9 @@ export const HeroActions = ({ setButtonHovered }: HeroActionsProps) => {
 							key={button.label}
 							variant={button.variant}
 							onMouseEnter={() => {
+								captureEvent('button_hover', {
+									button: button.label
+								})
 								hoverSound()
 								setButtonHovered(true)
 							}}
@@ -142,6 +146,9 @@ export const HeroActions = ({ setButtonHovered }: HeroActionsProps) => {
 								setButtonHovered(false)
 							}}
 							onMouseDown={() => {
+								captureEvent('button_click', {
+									button: button.label
+								})
 								clickSound()
 								if ('version' in button) {
 									downloadLatestRelease(button.version)

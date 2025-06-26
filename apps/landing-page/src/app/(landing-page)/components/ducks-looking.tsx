@@ -167,6 +167,7 @@ export const DucksLooking = ({ active }: DucksLookingProps) => {
 						...duck.position,
 						rotate: duck.rotate
 					}}
+					initial={duck.translate.from}
 					animate={active ? duck.translate.to : duck.translate.from}
 					transition={{
 						duration: 0.2,
