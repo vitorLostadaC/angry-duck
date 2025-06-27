@@ -1,7 +1,10 @@
 {
   "extends": "@repo/typescript-config/node.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "jsx": "react-jsx",
+    "lib": ["ES2023", "DOM"],
+    "types": ["node", "react"]
   },
   "include": [
     "src/**/*",
