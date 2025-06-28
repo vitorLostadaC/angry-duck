@@ -30,6 +30,7 @@
     "dotenv": "^16.5.0",
     "fastify": "^5.3.3",
     "fastify-type-provider-zod": "^4.0.2",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.16.0",
     "pino-pretty": "^13.0.0",
     "react": "19.1.0",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20.17.57",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",

@@ -16,7 +16,7 @@ interface AuthenticationCodeEmailProps {
 	code?: string
 }
 
-export default function AuthenticationCodeEmail({ code }: AuthenticationCodeEmailProps) {
+export function AuthenticationCodeEmail({ code }: AuthenticationCodeEmailProps) {
 	return (
 		<Tailwind>
 			<Html>

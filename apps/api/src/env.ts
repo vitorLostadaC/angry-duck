@@ -10,7 +10,8 @@ export const envSchema = z.object({
   CLERK_PUBLISHABLE_KEY: z.string(),
   CLERK_SECRET_KEY: z.string(),
   CLERK_WEBHOOK_SIGNING_SECRET: z.string(),
-  RESEND_API_KEY: z.string()
+  RESEND_API_KEY: z.string(),
+  JWT_SECRET: z.string()
 })
 
 export const env = envSchema.parse(process.env)

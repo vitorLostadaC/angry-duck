@@ -20,7 +20,7 @@ import {
 	expireMemory,
 	getMemories
 } from '../../../services/mongo/memories'
-import { chargeUser, getUser, refundUser } from '../../../services/mongo/user'
+import { chargeUser, findUserById, refundUser } from '../../../services/mongo/user'
 import type { AiServiceResponse } from '../../../types/ai'
 import type { Memory } from '../../../types/memory'
 
@@ -82,7 +82,7 @@ export class CurseScreenshotUseCase {
 	}
 
 	async validateUserAndCharge(userId: string): Promise<User> {
-		const [userError, user] = await catchError(getUser(userId))
+		const [userError, user] = await catchError(findUserById(userId))
 
 		if (userError || !user) {
 			throw new AppError('User not found', 'Check your account', 404)

@@ -3,5 +3,6 @@ export enum Collections {
 	Memories = 'memories',
 	Users = 'users',
 	Payments = 'payments',
-	Feedback = 'feedback'
+	Feedback = 'feedback',
+	UserCodes = 'user-codes'
 }
