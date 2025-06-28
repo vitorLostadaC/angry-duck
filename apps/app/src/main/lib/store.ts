@@ -4,6 +4,9 @@ import type { Configs } from '../../shared/types/configs'
 
 interface StoreConfig {
 	configs: Configs
+	auth: {
+		accessToken: string | null
+	}
 }
 
 const defaults: StoreConfig = {
@@ -17,6 +20,9 @@ const defaults: StoreConfig = {
 			safeMode: false,
 			focusMode: null
 		}
+	},
+	auth: {
+		accessToken: null
 	}
 }
 
