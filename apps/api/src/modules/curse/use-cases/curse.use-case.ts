@@ -3,7 +3,7 @@ import type {
 	CurseScreenshotRequest,
 	CurseScreenshotResponse
 } from '@repo/api-types/curse.dto'
-import type { User } from '@repo/api-types/user.dto'
+import type { User } from '@repo/api-types/user.schema'
 import type { WithId } from 'mongodb'
 import { MAX_LONG_MEMORY_LENGTH, MAX_SHORT_MEMORY_LENGTH } from '../../../constants/memory'
 import { aggregateTokens } from '../../../helpers/agregate-tokens'
