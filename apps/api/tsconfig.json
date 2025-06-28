@@ -6,10 +6,6 @@
     "lib": ["ES2023", "DOM"],
     "types": ["node", "react"]
   },
-  "include": [
-    "src/**/*",
-    "../../packages/api-types/src/user.dto.ts",
-    "../../packages/api-types/src/payment.ts"
-  ],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.*", "**/*.spec.*"]
 }

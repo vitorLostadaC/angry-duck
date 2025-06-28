@@ -1,4 +1,4 @@
-import type { UserCode } from '@repo/api-types/user-code.schema'
+import type { UserCode } from '@repo/api-types/user.schema'
 import { Collections } from '../../constants/mongo'
 import { getDb } from '../../lib/mongo'
 

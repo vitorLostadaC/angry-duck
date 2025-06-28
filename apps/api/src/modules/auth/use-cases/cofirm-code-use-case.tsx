@@ -1,3 +1,4 @@
+import type { UserJWT } from '@repo/api-types/user.schema'
 import jwt from 'jsonwebtoken'
 import { env } from '../../../env'
 import { AppError } from '../../../helpers/error-handler'
@@ -21,8 +22,9 @@ export class ConfirmCodeUseCase {
 
 		const token = jwt.sign(
 			{
-				email
-			},
+				email,
+				userId: userCode.userId
+			} satisfies UserJWT,
 			env.JWT_SECRET,
 			{
 				expiresIn: '30d'
