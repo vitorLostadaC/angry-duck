@@ -2,8 +2,9 @@ import z from 'zod'
 
 export const userSchema = z.object({
 	email: z.string().email(),
-	credits: z.number().default(3),
-	createdAt: z.string()
+	credits: z.number(),
+	createdAt: z.string(),
+	actived: z.boolean()
 })
 
 export const userCodeSchema = z.object({

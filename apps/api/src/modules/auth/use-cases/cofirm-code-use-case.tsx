@@ -2,6 +2,7 @@ import type { UserJWT } from '@repo/api-types/user.schema'
 import jwt from 'jsonwebtoken'
 import { env } from '../../../env'
 import { AppError } from '../../../helpers/error-handler'
+import { updateUser } from '../../../services/mongo/user'
 import { deleteUserCodeByEmail, findUserCodeByEmail } from '../../../services/mongo/user-codes'
 
 export class ConfirmCodeUseCase {
@@ -18,7 +19,10 @@ export class ConfirmCodeUseCase {
 			throw new AppError('Unauthorized', 'Invalid code', 401)
 		}
 
-		await deleteUserCodeByEmail(email)
+		await Promise.all([
+			updateUser(userCode.userId, { actived: true }),
+			deleteUserCodeByEmail(email)
+		])
 
 		const token = jwt.sign(
 			{

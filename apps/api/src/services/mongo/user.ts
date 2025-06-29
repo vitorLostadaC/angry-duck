@@ -46,6 +46,12 @@ export const createUser = async ({ email }: CreateUserProps) => {
 	const db = await getDb()
 	const user = await db
 		.collection<User>(Collections.Users)
-		.insertOne({ email, credits: 3, createdAt: new Date().toISOString() })
+		.insertOne({ email, credits: 3, actived: false, createdAt: new Date().toISOString() })
+	return user
+}
+
+export const updateUser = async (userId: string, data: Partial<User>) => {
+	const db = await getDb()
+	const user = await db.collection<User>(Collections.Users).updateOne({ userId }, { $set: data })
 	return user
 }
