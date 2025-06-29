@@ -14,9 +14,7 @@ const defaults: StoreConfig = {
 			focusMode: null
 		}
 	},
-	auth: {
-		accessToken: null
-	}
+	auth: null
 }
 
 export const store = new Store<StoreConfig>({

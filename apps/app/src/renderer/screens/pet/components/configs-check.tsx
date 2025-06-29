@@ -2,14 +2,14 @@ import { useQuery } from '@tanstack/react-query'
 import { memo, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { getLatestVersion } from '~/src/renderer/lib/get-latest-version'
-import { getConfigsOptions } from '~/src/renderer/requests/electron-store/options'
+import { getStoreOptions } from '~/src/renderer/requests/electron-store/options'
 
 export const ConfigsCheck = memo(() => {
 	const [params] = useSearchParams()
 
 	const currentAppVersion = params.get('version')
 
-	const { data: configs, isPending: isPendingConfigs } = useQuery(getConfigsOptions())
+	const { data: store, isPending: isPendingConfigs } = useQuery(getStoreOptions())
 	const { data: latestVersion, isPending: isPendingLatestVersion } = useQuery({
 		queryKey: ['latestVersion'],
 		queryFn: async () => await getLatestVersion()
@@ -17,17 +17,25 @@ export const ConfigsCheck = memo(() => {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		if (isPendingConfigs || isPendingLatestVersion || !configs) return
+		const isLoading = isPendingConfigs || isPendingLatestVersion
 
-		if (configs.general.firstRun || latestVersion !== currentAppVersion) {
+		if (isLoading || !store) return
+
+		const isFirstRun = store.configs.general.firstRun
+		const thereIsNewVersion = latestVersion !== currentAppVersion
+
+		if (isFirstRun || thereIsNewVersion) {
 			window.api.windows.createSettingsWindow()
-			if (configs.general.firstRun)
-				window.api.config.updateConfig({
-					config: {
-						...configs,
-						general: {
-							...configs.general,
-							firstRun: false
+
+			if (store.configs.general.firstRun)
+				window.api.store.updateStore({
+					store: {
+						configs: {
+							...store.configs,
+							general: {
+								...store.configs.general,
+								firstRun: false
+							}
 						}
 					}
 				})

@@ -1,7 +1,6 @@
-import { useUser } from '@clerk/clerk-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { PaymentPlan, PaymentResponse } from '@repo/api-types/payment.dto'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { cpf } from 'cpf-cnpj-validator'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Loader2 } from 'lucide-react'
@@ -23,6 +22,7 @@ import {
 } from '~/src/renderer/components/ui/form'
 import { Input } from '~/src/renderer/components/ui/input'
 import { catchError } from '~/src/renderer/lib/utils'
+import { getStoreOptions } from '~/src/renderer/requests/electron-store/options'
 import { createPixPayment } from '~/src/renderer/requests/payments/create-pix-payment'
 
 type PixQrCodeFormProps = {
@@ -46,7 +46,7 @@ const formSchema = z.object({
 export type PixFormValues = z.infer<typeof formSchema>
 
 export const PixQrCodeForm = ({ plan, defaultValues, setPixPayment }: PixQrCodeFormProps) => {
-	const { user } = useUser()
+	const { data: store } = useQuery(getStoreOptions())
 	const form = useForm<PixFormValues>({
 		resolver: zodResolver(formSchema),
 		defaultValues
@@ -64,14 +64,14 @@ export const PixQrCodeForm = ({ plan, defaultValues, setPixPayment }: PixQrCodeF
 	}, [defaultValues, form])
 
 	async function onSubmit(values: PixFormValues) {
-		if (!user) return
+		if (!store?.auth) return
 
 		const [error, response] = await catchError(
 			createPixPaymentMutation({
 				...values,
 				plan,
-				userId: user?.id,
-				email: user.emailAddresses[0]?.emailAddress ?? 'example@example.com',
+				userId: store?.auth?.userId ?? '',
+				email: store?.auth?.email ?? 'example@example.com',
 				document: values.cpf,
 				phone: values.phone?.replace(/\D/g, '') ?? '48999169916'
 			})

@@ -1,8 +1,8 @@
-import { useUser } from '@clerk/clerk-react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { confetti } from '@tsparticles/confetti'
 import Lottie from 'lottie-react'
 import { useEffect } from 'react'
+import { getStoreOptions } from '~/src/renderer/requests/electron-store/options'
 import { getPaymentOptions } from '~/src/renderer/requests/payments/options'
 import { getUserOptions } from '~/src/renderer/requests/user/options'
 import successDuck from './assets/success-duck.json'
@@ -14,7 +14,6 @@ interface PixQrCodeDialogProps {
 
 export const PixQrCodeDialog = ({ paymentId, qrCodeBase64 }: PixQrCodeDialogProps) => {
 	const queryClient = useQueryClient()
-	const { user } = useUser()
 	const { data } = useQuery({
 		...getPaymentOptions(paymentId),
 		refetchInterval: (query) => {
@@ -22,13 +21,14 @@ export const PixQrCodeDialog = ({ paymentId, qrCodeBase64 }: PixQrCodeDialogProp
 			return data?.status === 'paid' ? false : 2000
 		}
 	})
+	const { data: store } = useQuery(getStoreOptions())
 
 	const isPaid = data?.status === 'paid'
 
 	useEffect(() => {
 		if (!isPaid) return
 
-		queryClient.invalidateQueries(getUserOptions(user?.id ?? ''))
+		queryClient.invalidateQueries(getUserOptions(store?.auth?.userId ?? ''))
 
 		const config = {
 			particleCount: 100,

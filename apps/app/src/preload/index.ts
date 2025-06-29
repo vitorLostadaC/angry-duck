@@ -21,8 +21,8 @@ const api = {
 	},
 	store: {
 		getStore: (): Promise<GetStoreResponse> => ipcRenderer.invoke(IPC.STORE.GET_STORE),
-		updateStore: (config: UpdateStoreRequest): Promise<UpdateStoreResponse> =>
-			ipcRenderer.invoke(IPC.STORE.UPDATE_STORE, config)
+		updateStore: (store: UpdateStoreRequest): Promise<UpdateStoreResponse> =>
+			ipcRenderer.invoke(IPC.STORE.UPDATE_STORE, store)
 	}
 } as const
 

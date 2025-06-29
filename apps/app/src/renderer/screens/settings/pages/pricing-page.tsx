@@ -1,11 +1,12 @@
 import { cn } from '@renderer/lib/utils'
 import { plans as ApiPlans, type PaymentPlan } from '@repo/api-types/payment.dto'
 
-import { useClerk, useUser } from '@clerk/clerk-react'
+import { useQuery } from '@tanstack/react-query'
 import { HandCoins, InfoIcon, Mail } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Button } from '~/src/renderer/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '~/src/renderer/components/ui/tooltip'
+import { getStoreOptions } from '~/src/renderer/requests/electron-store/options'
 import { PixDialog } from '../components/pix-dialog'
 import type { PixFormValues } from '../components/pix-dialog/pix-form'
 import { PricingParticle } from '../components/pricing-particle'
@@ -61,30 +62,29 @@ const plans: PricingPlan[] = Object.entries(ApiPlans).map(([slug, plan]) => {
 })
 
 export function PricingPage() {
-	const auth = useUser()
-	const clerk = useClerk()
 	const [modalOpen, setModalOpen] = useState(false)
 	const [selectedPlan, setSelectedPlan] = useState<PaymentPlan>()
 
 	const [modalDefaultValues, setModalDefaultValues] = useState<PixFormValues>()
 
-	useEffect(() => {
-		if (!auth.isLoaded || !auth.isSignedIn) return
+	const { data: store } = useQuery(getStoreOptions())
 
-		const { user } = auth
+	useEffect(() => {
+		if (!store?.auth) return
 
 		setModalDefaultValues({
-			name: user.fullName ?? '',
+			name: store.auth.email.split('@')[0] ?? '',
 			cpf: '',
-			phone: user.primaryPhoneNumber?.phoneNumber ?? ''
+			phone: ''
 		})
-	}, [auth.isLoaded])
+	}, [store?.auth])
 
 	const handlePlanClick = (plan: PaymentPlan) => {
-		if (!auth.isSignedIn) {
-			clerk.openSignIn()
+		if (!store?.auth) {
+			alert('mostraaaaa o loginnnnnnn')
 			return
 		}
+
 		setSelectedPlan(plan)
 		setModalOpen(true)
 	}

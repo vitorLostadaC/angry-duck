@@ -1,27 +1,29 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import type { Store } from '~/src/shared/types/store'
-import { getConfigsOptions } from '../../../requests/electron-store/options'
+import { getStoreOptions } from '~/src/renderer/requests/electron-store/options'
+import type { StoreConfigs } from '~/src/shared/types/store'
 
 export const useConfig = () => {
 	const queryClient = useQueryClient()
-	const { data: configs } = useQuery(getConfigsOptions())
+	const { data: store } = useQuery(getStoreOptions())
 
 	const { mutateAsync: updateConfig } = useMutation({
 		mutationKey: ['update-config'],
-		mutationFn: (config: Partial<Store>) => {
-			return window.api.config.updateConfig({ config })
+		mutationFn: (configs: Partial<StoreConfigs>) => {
+			return window.api.store.updateStore({
+				store: { configs: { ...store!.configs, ...configs } }
+			})
 		},
-		onSuccess: ({ config }) => {
-			queryClient.setQueryData(getConfigsOptions().queryKey, (oldData) => {
-				if (!oldData) return config
+		onSuccess: ({ store }) => {
+			queryClient.setQueryData(getStoreOptions().queryKey, (oldData) => {
+				if (!oldData) return store
 
 				return {
 					...oldData,
-					...config
+					...store
 				}
 			})
 		}
 	})
 
-	return { configs, updateConfig }
+	return { configs: store?.configs, updateConfig }
 }
