@@ -1,5 +1,5 @@
-import { api } from '@renderer/lib/axios'
 import type { CurseScreenshotRequest, CurseScreenshotResponse } from '@repo/api-types/curse.dto'
+import { api } from '~/src/renderer/lib/api'
 
 interface CurseRequest extends CurseScreenshotRequest {
 	userId: string
