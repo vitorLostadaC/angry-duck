@@ -1,8 +1,8 @@
 import type { PaymentPlan, PaymentResponse } from '@repo/api-types/payment.dto'
 import { useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../../../../components/ui/dialog'
-import { type PixFormValues, PixQrCodeForm } from './pix-form'
-import { PixQrCodeDialog } from './pix-qr-code'
+import { type PixFormValues, PixQrCodeForm } from './components/pix-form'
+import { PixQrCodeDialog } from './components/pix-qr-code'
 
 interface PixDialogProps {
 	plan: PaymentPlan

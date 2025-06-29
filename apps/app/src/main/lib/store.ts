@@ -1,10 +1,6 @@
 import { is } from '@electron-toolkit/utils'
 import Store from 'electron-store'
-import type { Configs } from '../../shared/types/configs'
-
-interface StoreConfig {
-	configs: Configs
-}
+import type { Store as StoreConfig } from '~/src/shared/types/store'
 
 const defaults: StoreConfig = {
 	configs: {
@@ -17,7 +13,8 @@ const defaults: StoreConfig = {
 			safeMode: false,
 			focusMode: null
 		}
-	}
+	},
+	auth: null
 }
 
 export const store = new Store<StoreConfig>({

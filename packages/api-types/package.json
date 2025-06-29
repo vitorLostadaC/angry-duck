@@ -6,9 +6,10 @@
   "exports": {
     "./curse.dto": "./src/curse.dto.ts",
     "./payment.dto": "./src/payment.dto.ts",
-    "./user.dto": "./src/user.dto.ts",
     "./feedback.dto": "./src/dtos/feedback.dto.ts",
-    "./feedback.schema": "./src/schemas/feedback.ts"
+    "./feedback.schema": "./src/schemas/feedback.ts",
+    "./user.schema": "./src/schemas/user.ts",
+    "./authentication.dto": "./src/dtos/authentication.dto.ts"
   },
   "scripts": {
     "check-types": "tsc --noEmit",

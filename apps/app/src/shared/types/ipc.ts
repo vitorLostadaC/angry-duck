@@ -1,4 +1,4 @@
-import type { Configs } from './configs'
+import type { Store } from './store'
 
 export interface TakeScreenshotResponse {
 	/**
@@ -7,14 +7,14 @@ export interface TakeScreenshotResponse {
 	screenshot: string | null
 }
 
-export interface UpdateConfigRequest {
-	config: Partial<Configs>
+export interface UpdateStoreRequest {
+	store: Partial<Store>
 }
 
-export interface UpdateConfigResponse {
-	config: Configs
+export interface UpdateStoreResponse {
+	store: Store
 }
 
-export interface GetConfigResponse {
-	config: Configs
+export interface GetStoreResponse {
+	store: Store
 }

@@ -1,10 +1,10 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { IPC } from '../shared/constants/ipc'
 import type {
-	GetConfigResponse,
+	GetStoreResponse,
 	TakeScreenshotResponse,
-	UpdateConfigRequest,
-	UpdateConfigResponse
+	UpdateStoreRequest,
+	UpdateStoreResponse
 } from '../shared/types/ipc'
 
 const api = {
@@ -19,10 +19,10 @@ const api = {
 		onCloseSettingsWindow: (callback: () => void) =>
 			ipcRenderer.on(IPC.WINDOWS.ON_CLOSE_SETTINGS, callback)
 	},
-	config: {
-		getConfigs: (): Promise<GetConfigResponse> => ipcRenderer.invoke(IPC.CONFIG.GET_CONFIGS),
-		updateConfig: (config: UpdateConfigRequest): Promise<UpdateConfigResponse> =>
-			ipcRenderer.invoke(IPC.CONFIG.UPDATE_CONFIG, config)
+	store: {
+		getStore: (): Promise<GetStoreResponse> => ipcRenderer.invoke(IPC.STORE.GET_STORE),
+		updateStore: (store: UpdateStoreRequest): Promise<UpdateStoreResponse> =>
+			ipcRenderer.invoke(IPC.STORE.UPDATE_STORE, store)
 	}
 } as const
 

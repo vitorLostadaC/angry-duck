@@ -1,5 +1,5 @@
-import { BrowserWindow, screen } from 'electron'
 import path, { join } from 'node:path'
+import { BrowserWindow, screen } from 'electron'
 import { version } from '../../package.json'
 
 import { registerRoute } from '../shared/lib/electron-router-dom'
@@ -101,8 +101,18 @@ export function createMainWindow() {
 	})
 }
 
+let settingsWindow: BrowserWindow | null = null
+
 export function createSettingsWindow() {
-	return createWindow({
+	// Reuse existing window if it is still alive
+	if (settingsWindow && !settingsWindow.isDestroyed()) {
+		if (settingsWindow.isMinimized()) settingsWindow.restore()
+		settingsWindow.show()
+		settingsWindow.focus()
+		return settingsWindow
+	}
+
+	settingsWindow = createWindow({
 		id: 'settings',
 		width: 774,
 		height: 488,
@@ -125,4 +135,10 @@ export function createSettingsWindow() {
 			contextIsolation: true
 		}
 	})
+
+	settingsWindow.on('closed', () => {
+		settingsWindow = null
+	})
+
+	return settingsWindow
 }

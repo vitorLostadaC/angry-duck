@@ -1,16 +1,16 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getStoreOptions } from '~/src/renderer/requests/electron-store/options'
-import type { StoreConfigs } from '~/src/shared/types/store'
+import type { StoreAuth } from '~/src/shared/types/store'
 
-export const useConfig = () => {
+export const useAuth = () => {
 	const queryClient = useQueryClient()
 	const { data: store } = useQuery(getStoreOptions())
 
-	const { mutateAsync: updateConfig } = useMutation({
-		mutationKey: ['update-config'],
-		mutationFn: (configs: Partial<StoreConfigs>) => {
+	const { mutateAsync: updateAuth } = useMutation({
+		mutationKey: ['update-auth'],
+		mutationFn: (auth: StoreAuth | null) => {
 			return window.api.store.updateStore({
-				store: { configs: { ...store!.configs, ...configs } }
+				store: { auth }
 			})
 		},
 		onSuccess: ({ store }) => {
@@ -25,5 +25,5 @@ export const useConfig = () => {
 		}
 	})
 
-	return { configs: store?.configs, updateConfig }
+	return { auth: store?.auth, updateAuth }
 }

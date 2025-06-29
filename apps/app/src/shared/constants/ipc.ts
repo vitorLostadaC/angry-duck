@@ -7,8 +7,8 @@ export const IPC = {
 		ON_OPEN_SETTINGS: 'on-open-settings-window',
 		ON_CLOSE_SETTINGS: 'on-close-settings-window'
 	},
-	CONFIG: {
-		GET_CONFIGS: 'get-configs',
-		UPDATE_CONFIG: 'update-config'
+	STORE: {
+		GET_STORE: 'get-store',
+		UPDATE_STORE: 'update-store'
 	}
 }

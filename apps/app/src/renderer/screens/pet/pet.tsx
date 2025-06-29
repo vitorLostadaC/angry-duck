@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
-import { getConfigsOptions } from '../../requests/electron-store/config'
+import { getStoreOptions } from '../../requests/electron-store/options'
 import { Chat } from './chat'
 import { ConfigsCheck } from './components/configs-check'
 import { PET_DIMENSIONS, PetState, pets } from './constants/pet'
@@ -12,7 +12,7 @@ export const PetScreen = (): React.JSX.Element => {
 	const [settingsOpened, setSettingsOpened] = useState(false)
 	const currentStateRef = useRef<PetState>(PetState.WALKING)
 	const chatRef = useRef<HTMLDivElement>(null)
-	const { data: configs } = useQuery(getConfigsOptions())
+	const { data: store } = useQuery(getStoreOptions())
 
 	useEffect(() => {
 		window.api.windows.onOpenSettingsWindow(() => {
@@ -63,7 +63,7 @@ export const PetScreen = (): React.JSX.Element => {
 					ref={chatRef}
 				/>
 				<img
-					src={pets[configs?.appearance.selectedPet ?? 'duck'][currentStateRef.current]}
+					src={pets[store?.configs.appearance.selectedPet ?? 'duck'][currentStateRef.current]}
 					alt="Duck"
 					className="w-full h-full object-contain"
 					style={{ transform: `scaleX(${direction})` }}

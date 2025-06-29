@@ -1,13 +1,13 @@
 import { IPC } from '@shared/constants/ipc'
 import type {
-	GetConfigResponse,
+	GetStoreResponse,
 	TakeScreenshotResponse,
-	UpdateConfigRequest,
-	UpdateConfigResponse
+	UpdateStoreRequest,
+	UpdateStoreResponse
 } from '@shared/types/ipc'
 import type { IpcMainInvokeEvent, WebContents } from 'electron'
 import { desktopCapturer, ipcMain, screen } from 'electron'
-import type { Configs } from '~/src/shared/types/configs'
+import type { Store } from '~/src/shared/types/store'
 import { createSettingsWindow } from '../factories'
 import { store } from './store'
 
@@ -43,21 +43,23 @@ ipcMain.handle(IPC.ACTIONS.TAKE_SCREENSHOT, async (): Promise<TakeScreenshotResp
 	}
 })
 
-ipcMain.handle(IPC.CONFIG.GET_CONFIGS, async (): Promise<GetConfigResponse> => {
+ipcMain.handle(IPC.STORE.GET_STORE, async (): Promise<GetStoreResponse> => {
 	return {
-		config: store.get('configs')
+		store: store.store
 	}
 })
 
 ipcMain.handle(
-	IPC.CONFIG.UPDATE_CONFIG,
-	async (_, { config }: UpdateConfigRequest): Promise<UpdateConfigResponse> => {
-		const currentConfig = store.get('configs')
-		const updatedConfig = { ...currentConfig, ...config } satisfies Configs
-		store.set('configs', updatedConfig)
+	IPC.STORE.UPDATE_STORE,
+	async (_, { store: storeData }: UpdateStoreRequest): Promise<UpdateStoreResponse> => {
+		const updatedStore: Store = { ...store.store, ...storeData }
+
+		for (const key of Object.keys(updatedStore) as (keyof Store)[]) {
+			store.set(key, updatedStore[key])
+		}
 
 		return {
-			config: updatedConfig
+			store: updatedStore
 		}
 	}
 )

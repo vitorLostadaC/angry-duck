@@ -1,10 +1,16 @@
-import type { User } from '@repo/api-types/user.dto'
+import type { User } from '@repo/api-types/user.schema'
 import { Collections } from '../../constants/mongo'
 import { getDb } from '../../lib/mongo'
 
-export const getUser = async (userId: string) => {
+export const findUserById = async (userId: string) => {
 	const db = await getDb()
 	const user = await db.collection<User>(Collections.Users).findOne({ userId })
+	return user
+}
+
+export const findUserByEmail = async (email: string) => {
+	const db = await getDb()
+	const user = await db.collection<User>(Collections.Users).findOne({ email })
 	return user
 }
 
@@ -33,15 +39,19 @@ export const addCredits = async (userId: string, credits: number) => {
 }
 
 interface CreateUserProps {
-	userId: string
 	email: string
-	name: string
 }
 
-export const createUser = async ({ userId, email, name }: CreateUserProps) => {
+export const createUser = async ({ email }: CreateUserProps) => {
 	const db = await getDb()
 	const user = await db
 		.collection<User>(Collections.Users)
-		.insertOne({ userId, email, name, credits: 3, createdAt: new Date().toISOString() })
+		.insertOne({ email, credits: 3, actived: false, createdAt: new Date().toISOString() })
+	return user
+}
+
+export const updateUser = async (userId: string, data: Partial<User>) => {
+	const db = await getDb()
+	const user = await db.collection<User>(Collections.Users).updateOne({ userId }, { $set: data })
 	return user
 }

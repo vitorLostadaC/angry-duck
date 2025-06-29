@@ -6,7 +6,6 @@ import { addCredits } from '../../../services/mongo/user'
 
 export class AbacatePayWebhook {
 	async execute(secret: string, event: PaymentWebhookPayload) {
-		console.log('event', event)
 		if (secret !== env.ABACATEPAY_WEBHOOK_SECRET_KEY) {
 			throw new AppError('Webhook secret mismatch', 'Secret does not match', 401)
 		}

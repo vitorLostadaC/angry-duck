@@ -1,6 +1,17 @@
 import type { PetType } from '~/src/renderer/screens/pet/constants/pet'
 
-export interface Configs {
+export interface Store {
+	configs: StoreConfigs
+	auth: StoreAuth | null
+}
+
+export interface StoreAuth {
+	accessToken: string
+	email: string
+	userId: string
+}
+
+export interface StoreConfigs {
 	general: {
 		/**
 		 * First time user is using the app

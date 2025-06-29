@@ -1,7 +1,6 @@
-import { useUser } from '@clerk/clerk-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { type Feedback, ratingSchema } from '@repo/api-types/feedback.schema'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import {
 	Angry,
 	Frown,
@@ -16,7 +15,8 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import z from 'zod'
 import { Popover, PopoverContent, PopoverTrigger } from '~/src/renderer/components/ui/popover'
-import { Button } from '../../../components/ui/button'
+import { getStoreOptions } from '~/src/renderer/requests/electron-store/options'
+import { Button } from '../../../../../components/ui/button'
 import {
 	Form,
 	FormControl,
@@ -25,12 +25,12 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage
-} from '../../../components/ui/form'
-import { Label } from '../../../components/ui/label'
-import { RadioGroup, RadioGroupItem } from '../../../components/ui/radio-group'
-import { Textarea } from '../../../components/ui/textarea'
-import { cn } from '../../../lib/utils'
-import { createFeedback } from '../../../requests/feedback/create-feedback'
+} from '../../../../../components/ui/form'
+import { Label } from '../../../../../components/ui/label'
+import { RadioGroup, RadioGroupItem } from '../../../../../components/ui/radio-group'
+import { Textarea } from '../../../../../components/ui/textarea'
+import { cn } from '../../../../../lib/utils'
+import { createFeedback } from '../../../../../requests/feedback/create-feedback'
 
 const rating: {
 	rating: Feedback['rating']
@@ -63,9 +63,9 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>
 
-export function SidebarFeedback() {
+export function FeedbackDialog() {
 	const [open, setOpen] = useState(false)
-	const { user } = useUser()
+	const { data: store } = useQuery(getStoreOptions())
 
 	const [loading, setLoading] = useState(false)
 
@@ -80,14 +80,12 @@ export function SidebarFeedback() {
 		mutationKey: ['send-feedback'],
 		mutationFn: async (data: FormSchema) =>
 			await createFeedback({
-				userId: user?.id || '',
+				userId: store?.auth?.userId ?? '',
 				message: data.feedback,
 				rating: data.rating,
 				os: process.platform
 			})
 	})
-
-	console.log(error)
 
 	const handleSubmit = form.handleSubmit(async (data) => {
 		setLoading(true)

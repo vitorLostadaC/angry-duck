@@ -1,11 +1,10 @@
-import { useUser } from '@clerk/clerk-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
 import { catchError } from '~/src/renderer/lib/utils'
 import { curse } from '~/src/renderer/requests/curse/curse'
-import { getConfigsOptions } from '~/src/renderer/requests/electron-store/config'
-import { getAllPaymentsOptions } from '~/src/renderer/requests/payments/config'
-import { getUserOptions } from '~/src/renderer/requests/user/config'
+import { getStoreOptions } from '~/src/renderer/requests/electron-store/options'
+import { getAllPaymentsOptions } from '~/src/renderer/requests/payments/options'
+import { getUserOptions } from '~/src/renderer/requests/user/options'
 import { MESSAGE_DURATION } from '../constants/chat'
 
 interface PetChatCallbacks {
@@ -23,19 +22,17 @@ export const usePetChat = ({
 }: PetChatCallbacks): {
 	message: string
 } => {
-	const auth = useUser()
+	const { data: store } = useQuery(getStoreOptions())
 	const queryClient = useQueryClient()
 	const [message, setMessage] = useState('')
 
 	const chatTimerRef = useRef<NodeJS.Timeout | null>(null)
 	const messageIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
-	const { data: configs } = useQuery(getConfigsOptions())
-	const { data: payments } = useQuery(getAllPaymentsOptions(auth.user?.id ?? ''))
+	const { data: payments } = useQuery(getAllPaymentsOptions(store?.auth?.userId ?? ''))
 
 	const updatedStates = useRef({
-		auth,
-		configs,
+		store,
 		payments
 	})
 
@@ -48,10 +45,9 @@ export const usePetChat = ({
 	})
 
 	useEffect(() => {
-		updatedStates.current.auth = auth
-		updatedStates.current.configs = configs
+		updatedStates.current.store = store
 		updatedStates.current.payments = payments
-	}, [auth, configs, payments])
+	}, [store, payments])
 
 	const showMessage = (message: string) => {
 		onMessageShow?.()
@@ -69,13 +65,10 @@ export const usePetChat = ({
 		onTakingScreenshot?.()
 		const updatedValues = updatedStates.current
 
-		if (!updatedValues.auth.isLoaded) {
-			scheduleNextMessage()
-			return
-		}
-
-		if (!updatedValues.auth.isSignedIn) {
-			showMessage('Você precisa estar logado, né cabeção. Clica no ícone lá em cima')
+		if (!updatedValues.store?.auth) {
+			showMessage(
+				'Você precisa estar logado, né cabeção. Clica no ícone na sua barra de ferramentas'
+			)
 			return
 		}
 
@@ -90,9 +83,9 @@ export const usePetChat = ({
 			curseMutation({
 				imageBase64: base64.screenshot,
 				config: {
-					safeMode: updatedValues.configs!.general.safeMode
+					safeMode: updatedValues.store.configs.general.safeMode
 				},
-				userId: updatedValues.auth.user?.id ?? ''
+				userId: updatedValues.store.auth.userId ?? ''
 			})
 		)
 
@@ -127,7 +120,7 @@ export const usePetChat = ({
 
 		messageIntervalRef.current = setTimeout(async () => {
 			requestCurse()
-		}, updatedValues.configs!.general.cursingInterval * 1000)
+		}, updatedValues.store!.configs.general.cursingInterval * 1000)
 	}
 
 	function clearTimersAndSetups() {
@@ -138,7 +131,7 @@ export const usePetChat = ({
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: this should be called only once
 	useEffect(() => {
-		if (!configs || !enabled) {
+		if (!store || !enabled) {
 			console.log('clearTimersAndSetups via useEffect')
 			clearTimersAndSetups()
 			return
@@ -150,7 +143,7 @@ export const usePetChat = ({
 		return () => {
 			clearTimersAndSetups()
 		}
-	}, [!!configs, enabled])
+	}, [!!store, enabled])
 
 	return { message }
 }
