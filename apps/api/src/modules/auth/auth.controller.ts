@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { confirmCodeSchema, getCodeSchema } from '@repo/api-types/authentication.dto'
 import type { FastifyTypedInstance } from '../../types/fastify'
 import { AuthenticateUseCase } from './use-cases/authenticate-use-case'
 import { ConfirmCodeUseCase } from './use-cases/cofirm-code-use-case'
@@ -8,12 +8,10 @@ const confirmCodeUseCase = new ConfirmCodeUseCase()
 
 export async function authRoutes(fastify: FastifyTypedInstance) {
 	fastify.get(
-		'/auth',
+		'/auth/get-code',
 		{
 			schema: {
-				body: z.object({
-					email: z.string().email()
-				})
+				body: getCodeSchema
 			}
 		},
 		async (request, reply) => {
@@ -28,10 +26,7 @@ export async function authRoutes(fastify: FastifyTypedInstance) {
 		'/auth/confirm-code',
 		{
 			schema: {
-				body: z.object({
-					email: z.string().email(),
-					code: z.string()
-				})
+				body: confirmCodeSchema
 			}
 		},
 		async (request, reply) => {

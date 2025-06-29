@@ -8,7 +8,8 @@
     "./payment.dto": "./src/payment.dto.ts",
     "./feedback.dto": "./src/dtos/feedback.dto.ts",
     "./feedback.schema": "./src/schemas/feedback.ts",
-    "./user.schema": "./src/schemas/user.ts"
+    "./user.schema": "./src/schemas/user.ts",
+    "./authentication.dto": "./src/dtos/authentication.dto.ts"
   },
   "scripts": {
     "check-types": "tsc --noEmit",

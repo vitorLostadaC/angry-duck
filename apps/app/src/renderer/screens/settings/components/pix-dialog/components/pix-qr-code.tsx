@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { getStoreOptions } from '~/src/renderer/requests/electron-store/options'
 import { getPaymentOptions } from '~/src/renderer/requests/payments/options'
 import { getUserOptions } from '~/src/renderer/requests/user/options'
-import successDuck from './assets/success-duck.json'
+import successDuck from '../assets/success-duck.json'
 
 interface PixQrCodeDialogProps {
 	paymentId: string

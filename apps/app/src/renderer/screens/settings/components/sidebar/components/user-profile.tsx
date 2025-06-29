@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { CoinsIcon, LogOutIcon } from 'lucide-react'
+import { useState } from 'react'
 import { Button } from '~/src/renderer/components/ui/button'
 import {
 	DropdownMenu,
@@ -11,9 +12,11 @@ import {
 } from '~/src/renderer/components/ui/dropdown-menu'
 import { getStoreOptions } from '~/src/renderer/requests/electron-store/options'
 import { getUserOptions } from '~/src/renderer/requests/user/options'
+import { AuthenticateDialog } from '../../authenticate-dialog/authenticate-dialog'
 import { FeedbackDialog } from './feedback-dialog'
 
 export function UserProfile() {
+	const [authenticateOpen, setAuthenticateOpen] = useState(false)
 	const { data: store } = useQuery(getStoreOptions())
 	const { mutate: logout } = useMutation({
 		mutationFn: () =>
@@ -26,7 +29,12 @@ export function UserProfile() {
 
 	const { data } = useQuery(getUserOptions(store?.auth?.userId ?? ''))
 
-	if (!store?.auth) return <Button className="w-full">Login</Button>
+	if (!store?.auth)
+		return (
+			<AuthenticateDialog open={authenticateOpen} setOpen={setAuthenticateOpen}>
+				<Button className="w-full">Login</Button>
+			</AuthenticateDialog>
+		)
 
 	const userName = store?.auth?.email.split('@')[0] ?? ''
 

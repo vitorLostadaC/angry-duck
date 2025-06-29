@@ -87,7 +87,7 @@ export const PixQrCodeForm = ({ plan, defaultValues, setPixPayment }: PixQrCodeF
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2 gap-5">
-				<FormField
+				{/* <FormField
 					control={form.control}
 					name="name"
 					render={({ field }) => (
@@ -99,7 +99,7 @@ export const PixQrCodeForm = ({ plan, defaultValues, setPixPayment }: PixQrCodeF
 							<FormMessage />
 						</FormItem>
 					)}
-				/>
+				/> */}
 				<FormField
 					control={form.control}
 					name="cpf"
