@@ -3,9 +3,9 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
 import { catchError } from '~/src/renderer/lib/utils'
 import { curse } from '~/src/renderer/requests/curse/curse'
-import { getConfigsOptions } from '~/src/renderer/requests/electron-store/config'
-import { getAllPaymentsOptions } from '~/src/renderer/requests/payments/config'
-import { getUserOptions } from '~/src/renderer/requests/user/config'
+import { getConfigsOptions } from '~/src/renderer/requests/electron-store/options'
+import { getAllPaymentsOptions } from '~/src/renderer/requests/payments/options'
+import { getUserOptions } from '~/src/renderer/requests/user/options'
 import { MESSAGE_DURATION } from '../constants/chat'
 
 interface PetChatCallbacks {

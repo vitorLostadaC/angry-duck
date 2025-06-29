@@ -7,7 +7,7 @@ import type {
 } from '@shared/types/ipc'
 import type { IpcMainInvokeEvent, WebContents } from 'electron'
 import { desktopCapturer, ipcMain, screen } from 'electron'
-import type { Configs } from '~/src/shared/types/configs'
+import type { Store } from '~/src/shared/types/store'
 import { createSettingsWindow } from '../factories'
 import { store } from './store'
 
@@ -53,7 +53,7 @@ ipcMain.handle(
 	IPC.CONFIG.UPDATE_CONFIG,
 	async (_, { config }: UpdateConfigRequest): Promise<UpdateConfigResponse> => {
 		const currentConfig = store.get('configs')
-		const updatedConfig = { ...currentConfig, ...config } satisfies Configs
+		const updatedConfig = { ...currentConfig, ...config } satisfies Store
 		store.set('configs', updatedConfig)
 
 		return {

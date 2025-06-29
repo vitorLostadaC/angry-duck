@@ -3,8 +3,8 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { confetti } from '@tsparticles/confetti'
 import Lottie from 'lottie-react'
 import { useEffect } from 'react'
-import { getPaymentOptions } from '~/src/renderer/requests/payments/config'
-import { getUserOptions } from '~/src/renderer/requests/user/config'
+import { getPaymentOptions } from '~/src/renderer/requests/payments/options'
+import { getUserOptions } from '~/src/renderer/requests/user/options'
 import successDuck from './assets/success-duck.json'
 
 interface PixQrCodeDialogProps {

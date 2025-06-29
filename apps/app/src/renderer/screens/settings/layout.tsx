@@ -1,7 +1,7 @@
 import { cn } from '@renderer/lib/utils'
 import type React from 'react'
 import { Outlet } from 'react-router-dom'
-import { Sidebar } from './components/sidebar'
+import { Sidebar } from './components/sidebar/sidebar'
 import { UpgradeVersion } from './components/upgrade-version'
 
 export function Layout(): React.JSX.Element {

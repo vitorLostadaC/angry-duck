@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { memo, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { getLatestVersion } from '~/src/renderer/lib/get-latest-version'
-import { getConfigsOptions } from '~/src/renderer/requests/electron-store/config'
+import { getConfigsOptions } from '~/src/renderer/requests/electron-store/options'
 
 export const ConfigsCheck = memo(() => {
 	const [params] = useSearchParams()

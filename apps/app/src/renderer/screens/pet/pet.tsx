@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
-import { getConfigsOptions } from '../../requests/electron-store/config'
+import { getConfigsOptions } from '../../requests/electron-store/options'
 import { Chat } from './chat'
 import { ConfigsCheck } from './components/configs-check'
 import { PET_DIMENSIONS, PetState, pets } from './constants/pet'

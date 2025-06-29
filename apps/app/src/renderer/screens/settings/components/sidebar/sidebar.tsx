@@ -1,8 +1,8 @@
 import { cn } from '@renderer/lib/utils'
 import { CreditCard, type LucideIcon, Settings, Shirt } from 'lucide-react'
 import type React from 'react'
-import { TabButton } from './tab-button'
-import { UserProfile } from './user-profile'
+import { TabButton } from './components/tab-button'
+import { UserProfile } from './components/user-profile'
 
 interface Tab {
 	href: string
