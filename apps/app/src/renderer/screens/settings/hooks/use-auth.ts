@@ -8,9 +8,9 @@ export const useAuth = () => {
 
 	const { mutateAsync: updateAuth } = useMutation({
 		mutationKey: ['update-auth'],
-		mutationFn: (auth: Partial<StoreAuth>) => {
+		mutationFn: (auth: StoreAuth | null) => {
 			return window.api.store.updateStore({
-				store: { auth: { ...(store!.auth ?? { accessToken: '', email: '', userId: '' }), ...auth } }
+				store: { auth }
 			})
 		},
 		onSuccess: ({ store }) => {

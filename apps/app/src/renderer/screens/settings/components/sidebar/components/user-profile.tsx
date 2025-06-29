@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { CoinsIcon, LogOutIcon } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '~/src/renderer/components/ui/button'
@@ -12,20 +12,14 @@ import {
 } from '~/src/renderer/components/ui/dropdown-menu'
 import { getStoreOptions } from '~/src/renderer/requests/electron-store/options'
 import { getUserOptions } from '~/src/renderer/requests/user/options'
+import { useAuth } from '../../../hooks/use-auth'
 import { AuthenticateDialog } from '../../authenticate-dialog/authenticate-dialog'
 import { FeedbackDialog } from './feedback-dialog'
 
 export function UserProfile() {
+	const { updateAuth } = useAuth()
 	const [authenticateOpen, setAuthenticateOpen] = useState(false)
 	const { data: store } = useQuery(getStoreOptions())
-	const { mutate: logout } = useMutation({
-		mutationFn: () =>
-			window.api.store.updateStore({
-				store: {
-					auth: null
-				}
-			})
-	})
 
 	const { data } = useQuery(getUserOptions(store?.auth?.userId ?? ''))
 
@@ -57,12 +51,10 @@ export function UserProfile() {
 				<DropdownMenuContent>
 					<DropdownMenuLabel>{userName}</DropdownMenuLabel>
 					<DropdownMenuSeparator />
-					<DropdownMenuItem
-						asChild
-						className="w-full flex items-center gap-2"
-						onClick={() => logout()}
-					>
-						<LogOutIcon className="size-4" /> Sair
+					<DropdownMenuItem asChild className="w-full" onClick={() => updateAuth(null)}>
+						<div className="flex items-center gap-2">
+							<LogOutIcon className="size-4" /> Sair
+						</div>
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
