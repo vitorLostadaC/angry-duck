@@ -82,7 +82,7 @@ export function PricingPage() {
 
 	const handlePlanClick = (plan: PaymentPlan) => {
 		if (!store?.auth) {
-			setModalOpen(true)
+			setAuthenticateOpen(true)
 			return
 		}
 

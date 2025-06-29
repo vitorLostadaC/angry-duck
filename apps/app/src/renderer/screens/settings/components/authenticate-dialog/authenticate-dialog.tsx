@@ -30,9 +30,9 @@ export const AuthenticateDialog = ({ children, open, setOpen }: AuthenticateDial
 			}}
 		>
 			{children && <DialogTrigger asChild>{children}</DialogTrigger>}
-			<DialogContent className="sm:max-w-md">
+			<DialogContent className="sm:max-w-md" onInteractOutside={(e) => e.preventDefault()}>
 				{step === 'get-code' && <AuthenticateForm setStep={setStep} setEmail={setEmail} />}
-				{step === 'confirm-code' && <ConfirmCodeForm email={email} />}
+				{step === 'confirm-code' && <ConfirmCodeForm email={email} setOpen={setOpen} />}
 			</DialogContent>
 		</Dialog>
 	)

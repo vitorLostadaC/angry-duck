@@ -87,8 +87,6 @@ export function FeedbackDialog() {
 			})
 	})
 
-	console.log(error)
-
 	const handleSubmit = form.handleSubmit(async (data) => {
 		setLoading(true)
 		try {

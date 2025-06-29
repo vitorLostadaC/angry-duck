@@ -37,9 +37,10 @@ type FormValues = z.infer<typeof formSchema>
 
 interface ConfirmCodeFormProps {
 	email: string
+	setOpen: (value: boolean) => void
 }
 
-export const ConfirmCodeForm = ({ email }: ConfirmCodeFormProps) => {
+export const ConfirmCodeForm = ({ email, setOpen }: ConfirmCodeFormProps) => {
 	const { updateAuth } = useAuth()
 	const form = useForm<FormValues>({
 		defaultValues: {
@@ -69,6 +70,7 @@ export const ConfirmCodeForm = ({ email }: ConfirmCodeFormProps) => {
 			userId: decodeToken.userId
 		})
 		toast.success('Seja bem vindo!')
+		setOpen(false)
 	}
 
 	return (

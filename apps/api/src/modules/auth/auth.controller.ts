@@ -7,8 +7,8 @@ const authenticateUseCase = new AuthenticateUseCase()
 const confirmCodeUseCase = new ConfirmCodeUseCase()
 
 export async function authRoutes(fastify: FastifyTypedInstance) {
-	fastify.get(
-		'/auth/get-code',
+	fastify.post(
+		'/get-code',
 		{
 			schema: {
 				body: getCodeSchema
@@ -23,7 +23,7 @@ export async function authRoutes(fastify: FastifyTypedInstance) {
 		}
 	)
 	fastify.post(
-		'/auth/confirm-code',
+		'/confirm-code',
 		{
 			schema: {
 				body: confirmCodeSchema

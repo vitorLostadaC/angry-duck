@@ -1,3 +1,4 @@
+import { authRoutes } from './modules/auth/auth.controller'
 import { curseRoutes } from './modules/curse/curse.controller'
 import { feedbackRoutes } from './modules/feedback/feedback.controller'
 import { paymentRoutes } from './modules/payment/payment.controller'
@@ -11,4 +12,5 @@ export async function routes(app: FastifyTypedInstance) {
 	app.register(webhookRoutes, { prefix: '/webhook' })
 	app.register(userRoutes, { prefix: '/user' })
 	app.register(feedbackRoutes, { prefix: '/feedback' })
+	app.register(authRoutes, { prefix: '/auth' })
 }

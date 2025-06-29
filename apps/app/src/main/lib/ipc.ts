@@ -52,7 +52,11 @@ ipcMain.handle(IPC.STORE.GET_STORE, async (): Promise<GetStoreResponse> => {
 ipcMain.handle(
 	IPC.STORE.UPDATE_STORE,
 	async (_, { store: storeData }: UpdateStoreRequest): Promise<UpdateStoreResponse> => {
-		const updatedStore = { ...store.store, ...storeData } satisfies Store
+		const updatedStore: Store = { ...store.store, ...storeData }
+
+		for (const key of Object.keys(updatedStore) as (keyof Store)[]) {
+			store.set(key, updatedStore[key])
+		}
 
 		return {
 			store: updatedStore
