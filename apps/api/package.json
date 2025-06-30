@@ -6,9 +6,9 @@
   "main": "src/server.ts",
   "scripts": {
     "dev": "tsx watch --env-file .env src/server.ts",
-    "start": "node dist/server.cjs",
+    "start": "node dist/server.js",
     "check-types": "tsc --noEmit",
-    "build": "tsup-node src/server.ts --format esm --dts --outDir dist",
+    "build": "tsup-node src/server.ts --format esm,cjs --dts --outDir dist",
     "lint": "biome check src",
     "lint:fix": "biome check --fix --unsafe ./src",
     "email:dev": "email dev --dir ./src/emails"
