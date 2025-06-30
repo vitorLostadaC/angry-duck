@@ -1,43 +1,40 @@
 {
   "$schema": "https://turborepo.com/schema.json",
   "ui": "tui",
+  "globalDependencies": ["**/.env"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "env": ["VITE_*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", "build/**"]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "cache": false
     },
     "lint:fix": {
-      "dependsOn": ["^lint:fix"]
+      "cache": false
     },
     "check-types": {
-      "dependsOn": ["^check-types"]
-    },
-    "release": {
-      "dependsOn": ["^release"]
+      "cache": false
     },
     "build:linux": {
-      "dependsOn": ["^build:linux"],
-      "env": ["VITE_*"]
+      "cache": false,
+      "dependsOn": ["^build"]
     },
     "build:mac": {
-      "dependsOn": ["^build:mac"],
-      "env": ["VITE_*"]
+      "cache": false,
+      "dependsOn": ["^build"]
     },
     "build:win": {
-      "dependsOn": ["^build:win"],
-      "env": ["VITE_*"]
+      "cache": false,
+      "dependsOn": ["^build"]
     },
     "dev": {
       "cache": false,
       "persistent": true
     },
     "start": {
-      "dependsOn": ["^start"]
+      "cache": false
     }
   }
 }

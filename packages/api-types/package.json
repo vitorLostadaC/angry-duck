@@ -4,17 +4,19 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./curse.dto": "./src/curse.dto.ts",
-    "./payment.dto": "./src/payment.dto.ts",
-    "./feedback.dto": "./src/dtos/feedback.dto.ts",
-    "./feedback.schema": "./src/schemas/feedback.ts",
-    "./user.schema": "./src/schemas/user.ts",
-    "./authentication.dto": "./src/dtos/authentication.dto.ts"
+    "./curse.dto": "./dist/curse.dto.js",
+    "./payment.dto": "./dist/payment.dto.js",
+    "./feedback.dto": "./dist/dtos/feedback.dto.js",
+    "./feedback.schema": "./dist/schemas/feedback.js",
+    "./user.schema": "./dist/schemas/user.js",
+    "./authentication.dto": "./dist/dtos/authentication.dto.js"
   },
   "scripts": {
     "check-types": "tsc --noEmit",
     "lint": "biome check src",
-    "lint:fix": "biome check --fix --unsafe ./src"
+    "lint:fix": "biome check --fix --unsafe ./src",
+    "build": "tsc",
+    "dev": "tsc --watch"
   },
   "dependencies": {
     "zod": "^3.22.4"
