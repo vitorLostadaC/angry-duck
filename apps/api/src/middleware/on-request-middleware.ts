@@ -7,6 +7,9 @@ const publicRoutes = ['/webhook', '/auth', '/health']
 
 export const onRequestMiddleware = async (request: FastifyRequest, reply: FastifyReply) => {
 	const url = request.url
+
+	console.log(url)
+
 	const isPublicRoute = publicRoutes.some((route) => url.includes(route))
 
 	const adminHeader = request.headers['x-admin']
