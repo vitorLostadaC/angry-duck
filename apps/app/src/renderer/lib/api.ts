@@ -22,6 +22,7 @@ api.interceptors.response.use(
 
 		if (error.error === 'Unauthorized') {
 			queryClient.invalidateQueries(getStoreOptions())
+
 			window.api.store.updateStore({
 				store: {
 					auth: null
