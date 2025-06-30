@@ -5,8 +5,7 @@ import type { ApiError } from '../types/api'
 import { queryClient } from './react-query'
 
 export const api = axios.create({
-	baseURL: env.VITE_API_URL,
-	withCredentials: true
+	baseURL: env.VITE_API_URL
 })
 
 api.interceptors.request.use(async (config) => {
