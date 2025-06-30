@@ -28,7 +28,7 @@ const fastify = Fastify({
 }).withTypeProvider<ZodTypeProvider>()
 
 fastify.register(cors, {
-	origin: true
+	origin: '*'
 })
 
 fastify.setValidatorCompiler(validatorCompiler)
