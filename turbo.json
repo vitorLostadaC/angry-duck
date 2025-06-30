@@ -34,7 +34,8 @@
       "persistent": true
     },
     "start": {
-      "cache": false
+      "cache": false,
+      "env": ["*"]
     }
   }
 }
