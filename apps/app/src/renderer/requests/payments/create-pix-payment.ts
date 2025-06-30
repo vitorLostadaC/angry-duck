@@ -1,5 +1,5 @@
 import type { PaymentRequest, PaymentResponse } from '@repo/api-types/payment.dto'
-import { api } from '../../lib/axios'
+import { api } from '../../lib/api'
 
 interface CreatePixPaymentRequest extends PaymentRequest {
 	userId: string

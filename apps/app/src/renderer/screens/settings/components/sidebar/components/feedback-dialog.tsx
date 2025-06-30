@@ -55,9 +55,7 @@ const rating: {
 ] as const
 
 const formSchema = z.object({
-	feedback: z.string().min(3, {
-		message: 'sua mensagem deve conter pelo menos 3 caracteres'
-	}),
+	feedback: z.string(),
 	rating: ratingSchema
 })
 

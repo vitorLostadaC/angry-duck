@@ -1,5 +1,5 @@
 import type { CreateFeedbackDto } from '@repo/api-types/feedback.dto'
-import { api } from '../../lib/axios'
+import { api } from '../../lib/api'
 
 interface CreateFeedbackParams extends CreateFeedbackDto {
 	userId: string

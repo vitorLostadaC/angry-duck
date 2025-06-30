@@ -35,7 +35,7 @@ fastify.register(cors, {
 fastify.setValidatorCompiler(validatorCompiler)
 fastify.setSerializerCompiler(serializerCompiler)
 
-fastify.register(onRequestMiddleware)
+fastify.addHook('onRequest', onRequestMiddleware)
 
 fastify.register(routes)
 
