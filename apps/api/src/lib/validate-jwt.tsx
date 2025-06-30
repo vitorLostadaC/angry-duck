@@ -3,13 +3,16 @@ import jwt from 'jsonwebtoken'
 import { env } from '../env'
 
 export const validateJWT = (token: string) => {
-	const decoded = jwt.verify(token, env.JWT_SECRET) as UserJWT & { exp: number }
+	try {
+		const decoded = jwt.verify(token, env.JWT_SECRET) as UserJWT & { exp: number }
+		const now = Date.now() / 1000
 
-	const now = Date.now() / 1000
+		if (decoded.exp < now) {
+			return null
+		}
 
-	if (decoded.exp < now) {
+		return decoded
+	} catch (error) {
 		return null
 	}
-
-	return decoded
 }

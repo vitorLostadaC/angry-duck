@@ -1,5 +1,6 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { env } from '../env'
+import { AppError } from '../helpers/error-handler'
 import { validateJWT } from '../lib/validate-jwt'
 
 export const onRequestMiddleware = async (request: FastifyRequest, reply: FastifyReply) => {
@@ -18,8 +19,7 @@ export const onRequestMiddleware = async (request: FastifyRequest, reply: Fastif
 	const decoded = validateJWT(token)
 
 	if (!decoded) {
-		reply.code(401).send({ error: 'Unauthorized' })
-		return reply
+		throw new AppError('Unauthorized', 'Invalid token', 401)
 	}
 
 	request.user = decoded

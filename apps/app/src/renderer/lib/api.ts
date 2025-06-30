@@ -9,11 +9,17 @@ export const api = axios.create({
 	withCredentials: true
 })
 
+api.interceptors.request.use(async (config) => {
+	const store = queryClient.getQueryData(getStoreOptions().queryKey)
+	config.headers.Authorization = `Bearer ${store?.auth?.accessToken}`
+	return config
+})
+
 api.interceptors.response.use(
 	(response) => response.data,
 	(e) => {
-		console.log(e)
 		const error = e.response?.data as ApiError
+
 		if (error.error === 'Unauthorized') {
 			queryClient.invalidateQueries(getStoreOptions())
 			window.api.store.updateStore({
