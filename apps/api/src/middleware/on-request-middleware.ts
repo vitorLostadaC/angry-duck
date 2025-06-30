@@ -3,9 +3,11 @@ import { env } from '../env'
 import { AppError } from '../helpers/error-handler'
 import { validateJWT } from '../lib/validate-jwt'
 
+const publicRoutes = ['/webhook', '/auth', '/health']
+
 export const onRequestMiddleware = async (request: FastifyRequest, reply: FastifyReply) => {
 	const url = request.url
-	const isPublicRoute = url.includes('/webhook') || url.includes('/auth')
+	const isPublicRoute = publicRoutes.some((route) => url.includes(route))
 
 	const adminHeader = request.headers['x-admin']
 	const isDevAdmin = adminHeader === 'dev' && env.NODE_ENV === 'development'
