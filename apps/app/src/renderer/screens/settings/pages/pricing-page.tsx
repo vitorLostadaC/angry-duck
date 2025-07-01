@@ -69,6 +69,7 @@ export function PricingPage() {
 	const [modalDefaultValues, setModalDefaultValues] = useState<PixFormValues>()
 
 	const { data: store } = useQuery(getStoreOptions())
+	console.log(store)
 
 	useEffect(() => {
 		if (!store?.auth) return
@@ -87,7 +88,7 @@ export function PricingPage() {
 		}
 
 		setSelectedPlan(plan)
-		setAuthenticateOpen(true)
+		setModalOpen(true)
 	}
 
 	return (
