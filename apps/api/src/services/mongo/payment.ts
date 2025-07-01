@@ -49,5 +49,5 @@ export const paidPayment = async (gatewayId: string) => {
 
 	await db
 		.collection<Payment>(Collections.Payments)
-		.updateOne({ gatewayId }, { $set: { status: 'paid' } })
+		.updateOne({ gatewayId }, { $set: { status: 'paid', paidAt: new Date().toISOString() } })
 }

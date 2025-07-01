@@ -73,6 +73,7 @@ export type Payment = {
 	plan: PaymentPlan
 	status: 'pending' | 'paid'
 	createdAt: string
+	paidAt?: string
 } & {
 	gatewayId: string
 	type: 'pix'
