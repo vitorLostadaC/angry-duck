@@ -25,7 +25,9 @@ export function PixDialog({ defaultValues, open, onOpenChange, plan }: PixDialog
 		>
 			<DialogContent className="sm:max-w-md" onInteractOutside={(e) => e.preventDefault()}>
 				<DialogHeader>
-					<DialogTitle>Pagamento via PIX - {plan}</DialogTitle>
+					<DialogTitle>
+						Pagamento via PIX - {plan.charAt(0).toUpperCase() + plan.slice(1).replaceAll('-', ' ')}
+					</DialogTitle>
 				</DialogHeader>
 
 				{pixPayment ? (
