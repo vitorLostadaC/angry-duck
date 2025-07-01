@@ -23,8 +23,8 @@ export class AuthenticateUseCase {
 			userId
 		})
 
-		const result = await resend.emails.send({
-			from: 'temporario@paguestream.com',
+		await resend.emails.send({
+			from: 'patoputo@paguestream.com',
 			to: email,
 			subject: 'Ta aqui o codigo Car$#%}#',
 			react: <AuthenticationCodeEmail code={sixDigitCode} />
