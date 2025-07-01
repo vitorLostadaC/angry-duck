@@ -1,9 +1,14 @@
-import { getDb } from '../../../lib/mongo'
+import { AppError } from '../../../helpers/error-handler'
+import { findUserById } from '../../../services/mongo/user'
 
 export class GetUserUseCase {
 	async execute(userId: string) {
-		const db = await getDb()
-		const user = await db.collection('users').findOne({ userId })
+		const user = await findUserById(userId)
+
+		if (!user) {
+			throw new AppError('User not found', 'User not found', 404)
+		}
+
 		return user
 	}
 }
