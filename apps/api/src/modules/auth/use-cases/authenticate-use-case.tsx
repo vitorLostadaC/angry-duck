@@ -24,7 +24,7 @@ export class AuthenticateUseCase {
 		})
 
 		await resend.emails.send({
-			from: 'patoputo@paguestream.com',
+			from: 'patoputo@vitorlostada.com',
 			to: email,
 			subject: 'Ta aqui o codigo Car$#%}#',
 			react: <AuthenticationCodeEmail code={sixDigitCode} />
