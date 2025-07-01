@@ -154,9 +154,16 @@ export function FeedbackDialog() {
 													{rating.map(({ icon: Icon, rating }) => (
 														<FormItem key={rating}>
 															<FormControl>
-																<RadioGroupItem value={rating} id={rating} className="sr-only" />
+																<RadioGroupItem
+																	value={rating}
+																	id={rating}
+																	className="peer sr-only"
+																/>
 															</FormControl>
-															<Label htmlFor={rating} className="cursor-pointer">
+															<Label
+																htmlFor={rating}
+																className="cursor-pointer peer-focus-visible:ring-ring/50 peer-focus-visible:ring-[3px] peer-focus-visible:rounded-full"
+															>
 																<Icon
 																	strokeWidth={1.5}
 																	className={cn(
