@@ -1,5 +1,6 @@
 import { cn } from '@renderer/lib/utils'
 
+import { env } from '~/src/renderer/env'
 import { type PetType, pets } from '../../pet/constants/pet'
 import { useConfig } from '../hooks/use-config'
 
@@ -15,6 +16,7 @@ export function AppearancePage() {
 	return (
 		<div className="w-full flex-1 space-y-8">
 			<h2 className="">Aparência</h2>
+			{JSON.stringify(env)}
 			<div className="grid grid-cols-4 gap-8">
 				{Object.entries(pets).map(([slug, preview]) => {
 					const isSelected = configs.appearance.selectedPet === slug
