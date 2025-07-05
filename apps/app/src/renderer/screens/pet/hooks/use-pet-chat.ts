@@ -100,9 +100,7 @@ export const usePetChat = ({
 					return
 				}
 
-				showMessage(
-					'Veio aqui só pra me fazer gastar com Clerk e OpenAI, mas pagar que é bom nada, né?'
-				)
+				showMessage('É amigo, parece que os créditos gratuitos acabaram, ou paga ou tchau...')
 				return
 			}
 
