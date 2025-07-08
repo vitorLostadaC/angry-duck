@@ -20,9 +20,28 @@ export function MacSignDialog({ open, onOpenChange }: MacSignDialogProps) {
 			<DialogContent className="sm:max-w-md">
 				<DialogHeader>
 					<DialogTitle>Como abrir no mac</DialogTitle>
-					<DialogDescription>
-						Quando voce tentar abrir vai aparecer uma mensagem de erro, mas na verdade o app ainda
-						nao foi assinado. abra seu terminar e rode este commando
+					<DialogDescription className="space-y-2">
+						<p>
+							Quando você abrir o aplicativo no Mac, vai aparecer uma mensagem falando que o app
+							está corrompido, mas é MENTIRA!
+						</p>
+						<p>
+							Eu tenho que{' '}
+							<a
+								href="https://www.electronjs.org/docs/latest/tutorial/code-signing"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="underline text-tangerine-500"
+							>
+								assinar
+							</a>{' '}
+							o app com a licença da Apple de 500 reais, mercenários...
+						</p>
+						<p>
+							Para resolver, é só abrir o Terminal do seu Mac, colar o comando abaixo e pressionar
+							Enter.
+						</p>
+						<p>Depois disso, correr pro abraço.</p>
 					</DialogDescription>
 				</DialogHeader>
 				<div className="bg-tangerine-950 rounded-lg p-4">
