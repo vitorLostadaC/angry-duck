@@ -3,6 +3,7 @@ import { Button, type buttonVariants } from '@/components/ui/button'
 import { type Os, anim, cn, getMyOs } from '@/lib/utils'
 import type { VariantProps } from 'class-variance-authority'
 import { motion } from 'motion/react'
+import { useState } from 'react'
 import { useSound } from 'use-sound'
 import { GithubIcon } from '../assets/icons/github-icon'
 import { LinuxIcon } from '../assets/icons/linux-icon'
@@ -15,6 +16,7 @@ import {
 } from '../constants/animations'
 import { AppVersion } from '../constants/version'
 import { downloadLatestRelease } from '../lib/download-latest-release'
+import { MacSignDialog } from './mac-sign-dialog'
 
 type DownloadButton = {
 	label: string
@@ -42,6 +44,7 @@ interface HeroActionsProps {
 export const HeroActions = ({ setButtonHovered }: HeroActionsProps) => {
 	const [hoverSound] = useSound('/sounds/sound2.mp3')
 	const [clickSound] = useSound('/sounds/sound1.mp3')
+	const [openMacSignDialog, setOpenMacSignDialog] = useState(false)
 
 	const currentOs = getMyOs()
 
@@ -90,78 +93,84 @@ export const HeroActions = ({ setButtonHovered }: HeroActionsProps) => {
 	]
 
 	return (
-		<div className="flex justify-center items-center flex-col text-center gap-4 md:gap-10">
-			<div className="space-y-2 md:space-y-4">
+		<>
+			<MacSignDialog open={openMacSignDialog} onOpenChange={setOpenMacSignDialog} />
+			<div className="flex justify-center items-center flex-col text-center gap-4 md:gap-10">
+				<div className="space-y-2 md:space-y-4">
+					<motion.div
+						className={cn('text-6xl md:text-8xl text-zinc-800')}
+						{...fadeBlurUp}
+						transition={{
+							duration: animationDuration,
+							ease: [0.39, 0.57, 0.56, 1],
+							delay: initialAnimationDelay
+						}}
+					>
+						O Pato Puto
+					</motion.div>
+					<motion.div
+						className={cn('text-2xl md:text-4xl text-zinc-600')}
+						{...fadeBlurUp}
+						transition={{
+							duration: animationDuration,
+							ease: [0.39, 0.57, 0.56, 1],
+							delay: initialAnimationDelay + animationDelayByChild
+						}}
+					>
+						Seu novo melhor amigo
+					</motion.div>
+				</div>
 				<motion.div
-					className={cn('text-6xl md:text-8xl text-zinc-800')}
+					className="flex flex-wrap max-w-[450px] gap-2 md:gap-4 justify-center "
 					{...fadeBlurUp}
 					transition={{
 						duration: animationDuration,
 						ease: [0.39, 0.57, 0.56, 1],
-						delay: initialAnimationDelay
+						delay: initialAnimationDelay + animationDelayByChild * 2
 					}}
 				>
-					O Pato Puto
-				</motion.div>
-				<motion.div
-					className={cn('text-2xl md:text-4xl text-zinc-600')}
-					{...fadeBlurUp}
-					transition={{
-						duration: animationDuration,
-						ease: [0.39, 0.57, 0.56, 1],
-						delay: initialAnimationDelay + animationDelayByChild
-					}}
-				>
-					Seu novo melhor amigo
+					{currentOs === 'unsupported' && (
+						<div className="text-sm text-zinc-600 max-w-40 text-balance leading-[18px]">
+							Disponível apenas para computadores
+						</div>
+					)}
+					{downloadButtons
+						.filter((button) => button.os === currentOs || !button.os)
+						.map((button) => (
+							<Button
+								key={button.label}
+								variant={button.variant}
+								onMouseEnter={() => {
+									captureEvent('button_hover', {
+										button: button.label
+									})
+									hoverSound()
+									setButtonHovered(true)
+								}}
+								onMouseLeave={() => {
+									setButtonHovered(false)
+								}}
+								onMouseDown={() => {
+									captureEvent('button_click', {
+										button: button.label
+									})
+									clickSound()
+									if ('version' in button) {
+										downloadLatestRelease(button.version)
+										if (button.version === AppVersion.Mac) {
+											setOpenMacSignDialog(true)
+										}
+									} else {
+										window.open(button.link, '_blank')
+									}
+								}}
+							>
+								{button.icon}
+								{button.label}
+							</Button>
+						))}
 				</motion.div>
 			</div>
-			<motion.div
-				className="flex flex-wrap max-w-[450px] gap-2 md:gap-4 justify-center "
-				{...fadeBlurUp}
-				transition={{
-					duration: animationDuration,
-					ease: [0.39, 0.57, 0.56, 1],
-					delay: initialAnimationDelay + animationDelayByChild * 2
-				}}
-			>
-				{currentOs === 'unsupported' && (
-					<div className="text-sm text-zinc-600 max-w-40 text-balance leading-[18px]">
-						Disponível apenas para computadores
-					</div>
-				)}
-				{downloadButtons
-					.filter((button) => button.os === currentOs || !button.os)
-					.map((button) => (
-						<Button
-							key={button.label}
-							variant={button.variant}
-							onMouseEnter={() => {
-								captureEvent('button_hover', {
-									button: button.label
-								})
-								hoverSound()
-								setButtonHovered(true)
-							}}
-							onMouseLeave={() => {
-								setButtonHovered(false)
-							}}
-							onMouseDown={() => {
-								captureEvent('button_click', {
-									button: button.label
-								})
-								clickSound()
-								if ('version' in button) {
-									downloadLatestRelease(button.version)
-								} else {
-									window.open(button.link, '_blank')
-								}
-							}}
-						>
-							{button.icon}
-							{button.label}
-						</Button>
-					))}
-			</motion.div>
-		</div>
+		</>
 	)
 }
